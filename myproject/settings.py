@@ -127,6 +127,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,  'postapp/static')
 ]
 
+LOGIN_URL = 'postapp:login'
+LOGIN_REDIRECT_URL = 'postapp:index'
+LOGOUT_REDIRECT_URL = 'postapp:index'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
