@@ -1,13 +1,18 @@
 from django.shortcuts import render, redirect
 
 from .forms import LoginForm, SignUpForm
+from .models import Post
 from django.contrib.auth import login, authenticate
 
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 
-class IndexView(TemplateView):
+class IndexView(ListView):
+    model = Post
     template_name = 'postapp/index.html'
+    paginate_by = 12
+    queryset = Post.objects.order_by('created_at').reverse()
+
 
 class SignUp(CreateView):
     form_class = SignUpForm
