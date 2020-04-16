@@ -26,6 +26,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
 
         {% block customcss %}
+            <link href="{% static 'postapp/base.css' %}" rel="stylesheet">
         {% endblock customcss %}
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,9 +42,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            <i class="fab fa-facebook-f"></i> Facebook
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'postapp:new' %}">
+                            <i class="fas fa-pen"></i> Post
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -87,7 +88,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> Porfolio</a>
+        <a href="https://mdbootstrap.com/"> Portfolio</a>
     </div>
     <!-- Copyright -->
 

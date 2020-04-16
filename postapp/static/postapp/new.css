@@ -1,0 +1,15 @@
+/*-- スマホ版表示CSS  --*/
+@media screen and (min-width: 480px) {
+
+}
+
+/*-- PC版表示CSS  --*/
+@media screen and (min-width: 1200px) {
+  .custom-file-label::after {
+    content: "写真";
+  }
+  
+  .post_pad{
+    padding: 110px;
+  }
+}

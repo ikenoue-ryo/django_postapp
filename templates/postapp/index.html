@@ -1,52 +1,47 @@
 {% extends 'postapp/base.html' %}
 {% load static %}
 
+{% block customcss %}
+    <link href="{% static 'postapp/index.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
 {% block content %}
-<div class="container">
-    <section>
-        {% if post_list %}
-        {% for post in object_list %}
-        <div class="row p-12 text-lefti">
-            <div class="col-12 px-0">
-                <div class="card">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <a href="#" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon" style="height:3%">
-                                {{post.author.username }}{{ post.author.profname }}
-                            </a>
-                        </li>
-                    </ul>
-                    <img src="{{post.picture1.url}}" class="card-img" />
-                    <div class="card-body">
-                        <div class="like_list">
-                            <!-- ここにお気に入り機能を実装 -->
-                        </div>
-                        <div class="card-hedder">
-                            {{ post.text |truncatechars:20 }}
-                        </div><br>
-                        <div class="card-hedder">
-                            コメントする
-                        </div>
-                        <div class="pt-2">
-                            <small>
-                                投稿時間 {{ post.created_at|date:'m/d H:i' }}
-                            </small>
-                        </div>
+<div class="container clearfix">
+    {% for post in object_list %}
+    <div class="postcard">
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="#" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon"
+                            style="height:3%">
+                        {{post.author.username }}{{ post.author.profname }}
+                    </a>
+                </li>
+            </ul>
+                <div class="hovereffect">
+                    <img class="img-responsive card-img" src="{{post.picture1.url}}">
+                    <div class="overlay">
+                        <h2>いいね</h2>
                     </div>
                 </div>
-            </div>
+                <div class="card-body">
+                    <div class="like_list">
+                        <!-- ここにお気に入り機能を実装 -->
+                    </div>
+                    <div class="card-hedder">
+                        {{ post.text |truncatechars:18 }}
+                    </div><br>
+                    <div class="card-hedder">
+                        コメントする
+                    </div>
+                    <div class="pt-2">
+                        <small>
+                            投稿時間 {{ post.created_at|date:'m/d H:i' }}
+                        </small>
+                    </div>
+                </div>
         </div>
-        {% endfor %}
-        {% else %}
-        <div class="row p-5">
-            <div class="col-6 offset-3 text-center">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <p class="lead"><a href="{% url 'posts:new' %}">投稿</a>して他のユーザーに見つけてもらおう</p>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-    </section>
+    </div>
+    {% endfor %}
 </div>
 {% endblock content %}
