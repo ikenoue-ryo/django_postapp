@@ -19,8 +19,11 @@
                     <img src="{{post.picture1.url}}" class="card-img" />
                     <div class="card-body">
                         <div class="like_list">
-                            <!-- ここにお気に入り機能を実装していく -->
+                            <!-- ここにお気に入り機能を実装 -->
                         </div>
+                        <div class="card-hedder">
+                            {{ post.text |truncatechars:20 }}
+                        </div><br>
                         <div class="card-hedder">
                             コメントする
                         </div>

@@ -1,17 +1,29 @@
 from django.shortcuts import render, redirect
-
-from .forms import LoginForm, SignUpForm
-from .models import Post
+from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.views import LoginView, LogoutView
+
+from .forms import LoginForm, SignUpForm, PostForm
+from .models import Post
 
 from django.views.generic import TemplateView, ListView, CreateView
-from django.contrib.auth.views import LoginView, LogoutView
 
 class IndexView(ListView):
     model = Post
     template_name = 'postapp/index.html'
     paginate_by = 12
     queryset = Post.objects.order_by('created_at').reverse()
+
+
+class New(CreateView):
+    template_name = 'postapp/new.html'
+    form_class = PostForm
+    success_url = reverse_lazy('postapp:index')
+
+    #ログインユーザーを投稿者として登録する
+    def form_valid(self, form):
+        form.instance.author_id = self.request.user.id
+        return super(New, self).form_valid(form)
 
 
 class SignUp(CreateView):
@@ -33,6 +45,7 @@ class SignUp(CreateView):
 class Login(LoginView):
     form_class = LoginForm
     template_name = 'postapp/login.html'
+
 
 class Logout(LogoutView):
     template_name = 'postapp/index.html'
