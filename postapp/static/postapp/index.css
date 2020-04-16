@@ -1,7 +1,48 @@
+
+.fa-heart{
+  color: rgb(237, 73, 86);
+}
+
+
+
+
+
 /*-- スマホ版表示CSS  --*/
-@media screen and (min-width: 480px) {
-  h2{
+@media screen and (max-width: 480px) {
+  .spblock h2{
     font-size: 14px;
+    width: 60px;
+    display: inline-block;
+    margin-left: 5px;
+  }
+
+  .spblock{
+    padding: 5px 10px;
+  }
+
+  .card-body{
+    padding: 0 10px 10px;
+  }
+  .card{
+    border: 0;
+    box-shadow: none;
+  }
+
+  .container{
+    padding: 0;
+  }
+
+  .list-group-item{
+    padding: 10px;
+  }
+
+  .span_profname{
+    font-weight: 400;
+    margin-left: 5px;
+  }
+
+  .pt-2 small{
+    color: grey;
   }
 }
 
@@ -72,13 +113,15 @@
     font-size: 17px;
     background-color: transparent;
     color: #FFF;
-    padding: 75px 0;
+    padding: 65px 0;
     opacity: 0;
     filter: alpha(opacity=0);
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
     -webkit-transform: translate3d(0,-100%,0);
     transform: translate3d(0,-100%,0);
+    display: inline-block;
+    margin: 22px;
   }
 
   .hovereffect a, .hovereffect p {

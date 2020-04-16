@@ -12,16 +12,15 @@
         <div class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <a href="#" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon"
-                            style="height:3%">
-                        {{post.author.username }}{{ post.author.profname }}
+                    <a href="#" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle" style="height:3%">
+                    <span class="span_profname">{{ post.author.profname }}</span>
                     </a>
                 </li>
             </ul>
                 <div class="hovereffect">
                     <img class="img-responsive card-img" src="{{post.picture1.url}}">
-                    <div class="overlay">
-                        <h2>いいね</h2>
+                    <div class="overlay spblock">
+                        <span><i class="fas fa-heart"></i></span><h2>いいね！</h2>
                     </div>
                 </div>
                 <div class="card-body">
