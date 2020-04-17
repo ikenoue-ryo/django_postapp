@@ -40,6 +40,10 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
+                                    <div class="user_set">
+                                        <a href="{% url 'postapp:edit' post.id %}">編集</a>　
+                                        <a href="#">削除</a>
+                                    </div>
                                 </div>
                                 <div class="modal-body">
                                     <div class="post_img">

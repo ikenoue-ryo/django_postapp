@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
 from django.views.generic.edit import CreateView
 
 from .forms import LoginForm, SignUpForm, PostForm
@@ -29,6 +29,13 @@ class New(CreateView):
     def form_valid(self, form):
         form.instance.author_id = self.request.user.id
         return super(New, self).form_valid(form)
+
+
+class Edit(UpdateView):
+    template_name = 'postapp/edit.html'
+    model = Post
+    form_class = PostForm
+    success_url = reverse_lazy('postapp:index')
 
 
 class SignUp(CreateView):

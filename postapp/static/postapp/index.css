@@ -187,4 +187,15 @@
   .post_text{
     margin: 20px;
   }
+
+  .user_set{
+    position: relative;
+    top: 45px;
+    right: 30px;
+  }
+
+  .modal-header .close {
+    margin: -1rem -4.5rem -1rem auto!important;
+  }
+
 }
