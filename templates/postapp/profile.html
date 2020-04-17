@@ -1,0 +1,65 @@
+{% extends 'postapp/base.html' %}
+{% load static %}
+
+{% block customcss %}
+  <link href="{% static 'postapp/profile.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
+{% block content %}
+
+<!--Section: Testimonials v.1-->
+<section class="section pb-3 text-center">
+
+  <!--Section heading-->
+  <h1 class="section-heading h1 pt-4">Profile</h1>
+
+  <div class="row">
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-12 mb-4 profile_card">
+
+      <!--Card-->
+      <div class="card testimonial-card">
+
+        <!--Background color-->
+        <div class="card-up blue lighten-2">
+        </div>
+
+        <!--Avatar-->
+        <div class="avatar mx-auto white"><img src="/media/{{ user.icon }}" width="300px"
+            alt="avatar mx-auto white" class="mt-4 rounded-circle">
+        </div>
+
+        <div class="card-body">
+          <!--Name-->
+          <h4 class="card-title mt-1">{{ user.profname }}</h4>
+          <hr>
+          <!--Quotation-->
+          <p><i class="fas fa-quote-left"></i> {{ user.proftext }}</p>
+        </div>
+
+      </div>
+      <!--Card-->
+
+    </div>
+    <!--Grid column-->
+
+</section>
+<!--Section: Testimonials v.1-->
+
+
+{% endblock content %}
+
+
+
+<!-- 
+
+
+<p><img src="/media/{{ user.icon }}" width="200"></p>
+<p>{{ user.profname }}</p>
+<p>{{ user.email }}</p>
+<p>{{ user.date_joined }}</p>
+
+
+{% for user in user1 %}
+{{ user.post.picture1 }}
+{% endfor %} -->

@@ -12,7 +12,7 @@
         <div class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <a href="#" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle" style="height:3%">
+                    <a href="{% url 'postapp:profile' post.pk %}" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle" style="height:3%">
                     <span class="span_profname">{{ post.author.profname }}</span>
                     </a>
                 </li>
@@ -33,7 +33,7 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <a href="#" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle float-left"
+                                    <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle float-left"
                                             style="height:3%">
                                         <span class="span_profname">{{ post.author.profname }}</span>
                                     </a>
@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="post_contents">
                                         <div class="post_icon">
-                                            <a href="#" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle"
+                                            <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle"
                                                     style="height:3%">
                                                 <span class="span_profname">{{ post.author.profname }}</span>
                                             </a>

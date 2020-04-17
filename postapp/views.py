@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
-from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic.edit import CreateView
 
 from .forms import LoginForm, SignUpForm, PostForm
 from .models import Post
+from users.models import User
 
-from django.views.generic import TemplateView, ListView, CreateView
 
 class IndexView(ListView):
     model = Post
@@ -50,3 +54,12 @@ class Login(LoginView):
 
 class Logout(LogoutView):
     template_name = 'postapp/index.html'
+
+
+class ProfileView(DetailView):
+    model = User
+    template_name = 'postapp/profile.html'
+
+
+
+

@@ -44,6 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField("メールアドレス", unique=True)
     profname = models.CharField("ユーザーネーム", max_length=20, null=True, unique=True)
     icon = models.ImageField(upload_to="image/", null=True, blank=True)
+    proftext = models.CharField("プロフィール", max_length=300, null=True, blank=True)
     is_staff = models.BooleanField("is_staff", default=False)
     is_active = models.BooleanField("is_active", default=True)
     date_joined = models.DateTimeField("date_joined", default=timezone.now)

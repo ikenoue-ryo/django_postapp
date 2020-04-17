@@ -22,7 +22,7 @@ class MyUserAdmin(UserAdmin):
     """カスタムユーザーモデルの Admin"""
 
     fieldsets = (
-    (None, {'fields': ('email', 'profname', 'icon', 'password')}),
+    (None, {'fields': ('email', 'profname', 'proftext', 'icon', 'password')}),
     (_('Permissions'), {'fields': ('is_active', 'is_staff',
                         'is_superuser',
                         'groups',
@@ -33,7 +33,7 @@ class MyUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
         'classes': ('wide',),
-        'fields': ('email', 'profname', 'password1', 'password2'),
+        'fields': ('email', 'profname', 'proftext', 'password1', 'password2'),
         }),
     )
     form = MyUserChangeForm
