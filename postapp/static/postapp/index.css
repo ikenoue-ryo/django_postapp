@@ -46,6 +46,11 @@
   }
 }
 
+
+
+
+
+
 /*-- PC版表示CSS  --*/
 @media screen and (min-width: 1200px) {
   .list-group{
@@ -142,13 +147,44 @@
     transform: translate3d(0,0,0);
   }
 
-  .modal-body img{
+  .post_img{
     width: 60%;
     display: inline-block;
     float: left;
   }
 
-  .post_img img{
+  .modal-body img{
+    display: inline-block;
+    float: left;
+  }
+
+  .modal-lg, .modal-xl{
+    max-width: 960px;
+  }
+
+  .post_icon{
+    margin: 5px 20px;
+  }
+
+  .post_icon img{
     width: 50px;
+  }
+
+  .post_contents{
+    width: 40%;
+    display: inline-block;
+    float: left;
+  }
+
+  .span_profname{
+    height: 50px;
+    display: block;
+    padding: 10px;
+    margin-left: 50px;
+  }
+
+
+  .post_text{
+    margin: 20px;
   }
 }
