@@ -5,8 +5,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
+from django.views.decorators.http import require_POST
 
 from .forms import LoginForm, SignUpForm, PostForm
 from .models import Post
@@ -36,6 +37,12 @@ class Edit(UpdateView):
     model = Post
     form_class = PostForm
     success_url = reverse_lazy('postapp:index')
+
+
+class Delete(DeleteView):
+    model = Post
+    success_url = reverse_lazy('postapp:index')
+
 
 
 class SignUp(CreateView):

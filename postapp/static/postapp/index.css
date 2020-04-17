@@ -53,6 +53,13 @@
 
 /*-- PC版表示CSS  --*/
 @media screen and (min-width: 1200px) {
+
+  img.pc_mainimg {
+    object-fit: cover;
+    width: 350px;
+    height: 233px;
+  }
+
   .list-group{
     display: none;
   }
@@ -196,6 +203,18 @@
 
   .modal-header .close {
     margin: -1rem -4.5rem -1rem auto!important;
+  }
+
+  .delete_content{
+    text-align: center;
+  }
+
+  .fa-exclamation-circle{
+    color: rgb(237, 73, 86);
+  }
+
+  .modal-dialog-centered {
+    min-height: 500px!important;
   }
 
 }
