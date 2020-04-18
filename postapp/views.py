@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, ListView, CreateView, DetailView,
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
 
-from .forms import LoginForm, SignUpForm, PostForm
+from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
 from .models import Post
 from users.models import User
 
@@ -73,6 +73,14 @@ class Logout(LogoutView):
 class ProfileView(DetailView):
     model = User
     template_name = 'postapp/profile.html'
+
+
+class ProfileEditView(UpdateView):
+    model = get_user_model()
+    form_class = ProfileForm
+    fields = ['email', 'profname', 'icon', 'proftext']
+    success_url = reverse_lazy('postapp:profile')
+
 
 
 

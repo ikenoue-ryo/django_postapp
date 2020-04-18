@@ -24,6 +24,8 @@
         <div class="card-up blue lighten-2">
         </div>
 
+        <a href="{% url 'postapp:profile_edit' user.id %}" data-toggle="modal" data-target="#elegantModalForm" class="profile_edit">編集</a>
+
         <!--Avatar-->
         <div class="avatar mx-auto white"><img src="/media/{{ user.icon }}" width="300px"
             alt="avatar mx-auto white" class="mt-4 rounded-circle">
@@ -46,20 +48,62 @@
 </section>
 <!--Section: Testimonials v.1-->
 
+<!-- プロフィールモーダルここから -->
+<!-- Modal -->
+<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Profile Edit</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <form id="signupform" action="{% url 'postapp:signup' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="md-form pb-3">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input " name="picture1" id="picture">
+              <label class="custom-file-label" for="customFile">プロフィール画像</label>
+            </div>
+          </div>
+          <div class="md-form mb-5">
+            <input type="email" name="email" id="Form-email1" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="Form-email1">Your email</label>
+          </div>
+          <div class="md-form mb-5">
+            <input type="text" name="profname" id="Form-email1" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="Form-email1">User name</label>
+          </div>
+          <div class="md-form mb-5">
+            <input type="text" name="proftext" id="Form-email1" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="Form-email1">Introduction</label>
+          </div>
+        
+          <div class="text-center mb-3">
+            <input type="submit" value="保存" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
+          </div>
+        </form>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end"><a href="#" class="blue-text ml-1">
+            Sign Up</a></p>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal -->
+<!-- プロフィールモーダルここまで -->
+
+
 
 {% endblock content %}
-
-
-
-<!-- 
-
-
-<p><img src="/media/{{ user.icon }}" width="200"></p>
-<p>{{ user.profname }}</p>
-<p>{{ user.email }}</p>
-<p>{{ user.date_joined }}</p>
-
-
-{% for user in user1 %}
-{{ user.post.picture1 }}
-{% endfor %} -->
