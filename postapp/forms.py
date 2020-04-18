@@ -38,7 +38,7 @@ class PostForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('email', 'profname', 'icon', 'proftext')
+        fields = ('icon', 'proftext')
 
     def __init__(self, email=None, profname=None, icon=None, proftext=None):
         kwargs.setdefault('label_suffix', '')
@@ -54,8 +54,6 @@ class ProfileForm(forms.ModelForm):
             self.fields['proftext'].widget.attrs['values'] = proftext
 
     def update(self, user):
-        user.email = self.cleaned_data['email']
-        user.profname = self.cleaned_data['profname']
         user.icon = self.cleaned_data['icon']
         user.proftext = self.cleaned_data['proftext']
         user.save()

@@ -1,4 +1,5 @@
 {% extends 'postapp/base.html' %}
+{% load custom_filter %}
 {% load static %}
 
 {% block customcss %}
@@ -138,14 +139,18 @@
                     <!-- 削除モーダルここまで -->
 
                 <div class="card-body">
-                    <div class="like_list">
-                        <!-- ここにお気に入り機能を実装 -->
+                    <div class="like_list_{{post.id}}">
+                        {{ post|is_like:user }}
+                        <span class="like_text">{{ like_list|get_likes:post.id }}</span>
+                    
                     </div>
                     <div class="card-hedder">
                         {{ post.text |truncatechars:18 }}
-                    </div><br>
+                    </div>
                     <div class="card-hedder">
-                        コメントする
+                        <a data-toggle="modal" data-target="#modal-follow-{{ post.id }}">
+                            <span class="comment_text"><i class="far fa-comment" style="font-size: 15px;"></i> コメントする</span>
+                        </a>
                     </div>
                     <div class="pt-2">
                         <small>
@@ -157,4 +162,22 @@
     </div>
     {% endfor %}
 </div>
+
+<script>
+    $(document).on('click', '.like', function () {
+        var id = $(this).attr("id");
+        do_like(id)
+    });
+
+
+    function do_like(post_id) {
+        $.ajax({
+            url: `./${post_id}/like`,
+            type: 'get'
+        })
+            .done((data) => {
+                $('.like_list_' + post_id).html(data);
+            })
+    }
+</script>
 {% endblock content %}

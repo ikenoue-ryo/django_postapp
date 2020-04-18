@@ -1,0 +1,9 @@
+{% load custom_filter %}
+{% load static %}
+
+{% block customcss %}
+    <link href="{% static 'postapp/index.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
+{{ post|is_like:user }}
+{{ like_list|get_likes:post.id }}

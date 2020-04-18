@@ -10,8 +10,9 @@ from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
 
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
-from .models import Post
+from .models import Post, Like
 from users.models import User
+from django.views import View
 
 
 class IndexView(ListView):
@@ -19,6 +20,17 @@ class IndexView(ListView):
     template_name = 'postapp/index.html'
     paginate_by = 12
     queryset = Post.objects.order_by('created_at').reverse()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        like_list = {}
+        comment_list = {}
+        for post in context['post_list']:
+            like_list[post.id] = Like.objects.filter(post=post)
+        context['like_list'] = like_list
+        return context
+ 
+
 
 
 class New(CreateView):
@@ -78,10 +90,33 @@ class ProfileView(DetailView):
 class ProfileEditView(UpdateView):
     model = get_user_model()
     form_class = ProfileForm
-    fields = ['email', 'profname', 'icon', 'proftext']
+    fields = ['icon', 'proftext']
     success_url = reverse_lazy('postapp:profile')
 
+    def get_object(self):
+        # ログイン中のユーザーで検索することを明示する
+        return self.request.user
 
 
+class Likes(View):
+    model = Like
+    slug_field = 'post'
+    slug_url_kwarg = 'postId'
 
-
+    def get(self, request, postId):
+        post = Post.objects.get(id=postId)
+        like = Like.objects.filter(author=self.request.user, post=post)
+        like_list = {}
+        # 過去にいいねを押しているのか
+        if like.exists():
+            # いいねされていれば消す
+            like.delete()
+        else:
+            # いいねされていなければ追加する
+            like = Like(author=self.request.user, post=post)
+            like.save()
+        like_list[post.id] = Like.objects.filter(post=post)
+        return render(request, 'postapp/like.html', {
+            'like_list': like_list,
+            'post': post
+        })

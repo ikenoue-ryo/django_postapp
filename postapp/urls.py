@@ -13,5 +13,6 @@ urlpatterns = [
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
-    path('profile/edit/<int:pk>/', views.ProfileEditView.as_view(), name='profile_edit')
+    path('profile/edit/<int:pk>/', views.ProfileEditView.as_view(), name='profile_edit'),
+    path('<postId>/like/', login_required(views.Likes.as_view()), name='like'),
 ]

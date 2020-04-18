@@ -66,29 +66,21 @@
       <!--Body-->
       <div class="modal-body mx-4">
         <!--Body-->
-        <form id="signupform" action="{% url 'postapp:signup' %}" method="POST" enctype="multipart/form-data">
+        <form id="signupform" action="" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="md-form pb-3">
             <div class="custom-file">
               <input type="file" class="custom-file-input " name="picture1" id="picture">
-              <label class="custom-file-label" for="customFile">プロフィール画像</label>
+              <label class="custom-file-label" for="customFile">ファイルを選択</label>
             </div>
           </div>
           <div class="md-form mb-5">
-            <input type="email" name="email" id="Form-email1" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="Form-email1">Your email</label>
-          </div>
-          <div class="md-form mb-5">
-            <input type="text" name="profname" id="Form-email1" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="Form-email1">User name</label>
-          </div>
-          <div class="md-form mb-5">
             <input type="text" name="proftext" id="Form-email1" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="Form-email1">Introduction</label>
+            <label data-error="wrong" data-success="right" for="Form-email1">PR</label>
           </div>
-        
           <div class="text-center mb-3">
-            <input type="submit" value="保存" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
+            <input type="submit" value="Post" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
+            <input type="hidden" name="next" value="{{ next }}">
           </div>
         </form>
       </div>

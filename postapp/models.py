@@ -7,3 +7,9 @@ class Post(models.Model):
     picture1 = models.ImageField(upload_to='image/posts/', blank=False, null=False)
     text = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+
+
+class Like(models.Model):
+    author = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    post = models.ForeignKey('postapp.Post', on_delete=models.CASCADE)
+    

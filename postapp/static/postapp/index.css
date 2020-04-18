@@ -40,10 +40,6 @@
     font-weight: 400;
     margin-left: 5px;
   }
-
-  .pt-2 small{
-    color: grey;
-  }
 }
 
 
@@ -227,4 +223,31 @@
     content: "写真";
   }
 
+  button.like{
+    border: none;
+  }
+
+  .like_text{
+    font-size: 14px;
+    padding: 10px 0 0;
+  }
+
+  .comment_text{
+    font-size: 13px;
+  }
+
+  .card-hedder{
+    margin: 10px 0;
+  }
+
+  .card-body{
+    padding: 10px 1.25rem;
+  }
+
+  small {
+    color: grey;
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+  }
 }
