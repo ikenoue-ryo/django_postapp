@@ -214,5 +214,17 @@
   }
 
  
+  .editform{
+    padding: 110px;
+    margin: 140px;
+  }
+
+  .editplace{
+    margin: 108px 14%;
+  }
+
+  .custom-file-label::after {
+    content: "写真";
+  }
 
 }
