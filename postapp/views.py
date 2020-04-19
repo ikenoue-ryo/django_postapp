@@ -105,6 +105,7 @@ class Likes(View):
 
     def get(self, request, postId):
         post = Post.objects.get(id=postId)
+        like_count = Like.objects.filter(id=postId).count()
         like = Like.objects.filter(author=self.request.user, post=post)
         like_list = {}
         # 過去にいいねを押しているのか
@@ -118,5 +119,6 @@ class Likes(View):
         like_list[post.id] = Like.objects.filter(post=post)
         return render(request, 'postapp/like.html', {
             'like_list': like_list,
-            'post': post
+            'post': post,
+            'like_count': like_count
         })
