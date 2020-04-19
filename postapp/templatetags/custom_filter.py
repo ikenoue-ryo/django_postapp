@@ -21,3 +21,13 @@ def is_like(post, user):
         return mark_safe(f"<button style=\"border: 0;padding: 0;\" class=\"like\" id=\"{post.id}\" type=\"submit\"><i class=\" fas fa-heart\"></i></button>")
     else:
         return mark_safe(f"<button style=\"border: 0;padding: 0;\" class=\"like\" id=\"{post.id}\" type=\"submit\"><i class=\" far fa-heart\"></i></button>")
+
+
+@register.filter(name='get_comment_list')
+def get_comment_list(comment_list, key):
+    text = ""
+    if key in comment_list:
+        for comment in comment_list[key]:
+            text += f"{comment.author.profname}: {comment.text}<br>"
+    
+    return mark_safe(text)

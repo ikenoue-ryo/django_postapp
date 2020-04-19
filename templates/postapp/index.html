@@ -60,6 +60,19 @@
                                         <div class="post_text">
                                             <p>{{ post.text }}</p>
                                         </div>
+                                        <div class="post_comment">
+                                            <form class="comment" id="{{ post.id }}">
+                                                {% csrf_token %}
+                                                <input class="form-control comment" name="comment" type="text" placeholder="コメント">
+                                            </form>
+                                            <div class="comment_list_{{post.id}} comments"><!--Ajax新規追加文-->
+                                                <p>{{ comment_list|get_comment_list:post.id }}</p><!--既存コメント-->
+                                            </div>
+                                            <div class="like_list_{{post.id}}"><!--Ajax追加文-->
+                                                {{ post|is_like:user }}<!--ハート-->
+                                                <span class="like_text">{{ like_list|get_likes:post.id }}</span><!--profnameがいいねしました-->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-between">
@@ -139,17 +152,17 @@
                     <!-- 削除モーダルここまで -->
 
                 <div class="card-body">
-                    <div class="like_list_{{post.id}}">
-                        {{ post|is_like:user }}
-                        <span class="like_text">{{ like_list|get_likes:post.id }}</span>
-                    
+                    <div class="like_list_{{post.id}}"><!--Ajax追加文-->
+                        {{ post|is_like:user }}<!--ハート-->
+                        <span class="like_text">{{ like_list|get_likes:post.id }}</span><!--profnameがいいねしました-->
                     </div>
                     <div class="card-hedder">
-                        {{ post.text |truncatechars:18 }}
+                        {{ post.text |truncatechars:18 }}<!--本文-->
                     </div>
                     <div class="card-hedder">
                         <a data-toggle="modal" data-target="#modal-follow-{{ post.id }}">
-                            <span class="comment_text"><i class="far fa-comment" style="font-size: 15px;"></i> コメントする</span>{{ like_count }}件
+                            <span class="comment_text"><i class="far fa-comment" style="font-size: 15px;"></i>
+                            コメント</span>
                         </a>
                     </div>
                     <div class="pt-2">
@@ -164,10 +177,17 @@
 </div>
 
 <script>
-    $(document).on('click', '.like', function () {
+$(document)
+    .on('click', '.like', function () {
         var id = $(this).attr("id");
         do_like(id)
-    });
+    })
+
+    .on('submit', 'form', function(){
+        do_comment($(this))
+        $(this).find(":text").val("")
+        return false
+    })
 
 
     function do_like(post_id) {
@@ -178,6 +198,19 @@
             .done((data) => {
                 $('.like_list_' + post_id).html(data);
             })
+    }
+
+
+    function do_comment(form){
+        console.log(form.serialize())
+        $.ajax({
+            url: `./${form.attr("id")}/comment/`,
+            type: 'post',
+            data: form.serialize(),
+        })
+        .done((data) => {
+            $('.like_list_' + form.attr("id")).html(data);
+        })
     }
 </script>
 {% endblock content %}

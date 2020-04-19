@@ -15,4 +15,5 @@ urlpatterns = [
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
     path('profile/edit/<int:pk>/', views.ProfileEditView.as_view(), name='profile_edit'),
     path('<postId>/like/', login_required(views.Likes.as_view()), name='like'),
+    path('<postId>/comment/', login_required(views.AddComment.as_view()), name='comment'),
 ]

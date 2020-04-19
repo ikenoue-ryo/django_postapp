@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
 
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
-from .models import Post, Like
+from .models import Post, Like, Comment
 from users.models import User
 from django.views import View
 
@@ -27,7 +27,9 @@ class IndexView(ListView):
         comment_list = {}
         for post in context['post_list']:
             like_list[post.id] = Like.objects.filter(post=post)
+            comment_list[post.id] = Comment.objects.filter(post=post)
         context['like_list'] = like_list
+        context['comment_list'] = comment_list
         return context
  
 
@@ -105,20 +107,43 @@ class Likes(View):
 
     def get(self, request, postId):
         post = Post.objects.get(id=postId)
-        like_count = Like.objects.filter(id=postId).count()
         like = Like.objects.filter(author=self.request.user, post=post)
+        like_count = Like.objects.filter(id=postId).count()
         like_list = {}
+        comment_list = {}
         # 過去にいいねを押しているのか
         if like.exists():
             # いいねされていれば消す
             like.delete()
-        else:
+        else: 
             # いいねされていなければ追加する
             like = Like(author=self.request.user, post=post)
             like.save()
         like_list[post.id] = Like.objects.filter(post=post)
+        comment_list[post.id] = Comment.objects.filter(post=post)
         return render(request, 'postapp/like.html', {
             'like_list': like_list,
-            'post': post,
-            'like_count': like_count
+            'comment_list': comment_list,
+            'post': post
+            #'like_count': like_count
+        })
+
+
+class AddComment(View):
+    def post(self, request, postId):
+        like_list = {}
+        comment_list = {}
+
+        post = Post.objects.get(id=postId)
+        text = request.POST["comment"]
+
+        comment = Comment(author=self.request.user, post=post, text=text)
+        comment.save()
+
+        like_list[post.id] = Like.objects.filter(post=post)
+        comment_list[post.id] = Comment.objects.filter(post=post)
+        return render(request, 'postapp/like.html', {
+            'like_list': like_list,
+            'comment_list': comment_list,
+            'post': post
         })

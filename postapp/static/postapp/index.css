@@ -250,4 +250,16 @@
     right: 10px;
     bottom: 3px;
   }
+
+  .post_comment{
+    margin: 20px;
+  }
+
+  .user_comment p{
+    margin: 20px 0;
+  }
+
+  .comments{
+    margin: 20px 0 10px;
+  }
 }
