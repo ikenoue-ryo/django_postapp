@@ -262,4 +262,26 @@
   .comments{
     margin: 20px 0 10px;
   }
+
+  .carousel-control-prev-icon{
+    position: relative;
+    top: 200px;
+    left: -43px;
+    width: 100px!important;
+    height: 70px!important;
+  }
+
+  .carousel-control-next-icon{
+    position: relative;
+    top: 200px;
+    left: -333px;
+    width: 100px!important;
+    height: 70px!important;
+  }
+
+  .carousel-item{
+    object-fit: cover;
+    width: 556px;
+    height: 371px;
+  }
 }
