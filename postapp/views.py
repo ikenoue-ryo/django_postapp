@@ -8,6 +8,8 @@ from django.contrib.auth import get_user_model
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
+from django.contrib.auth.forms import AuthenticationForm
+
 
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
 from .models import Post, Like, Comment
@@ -78,7 +80,7 @@ class SignUp(CreateView):
 class Login(LoginView):
     form_class = LoginForm
     template_name = 'postapp/login.html'
-
+    
 
 class Logout(LogoutView):
     template_name = 'postapp/index.html'
