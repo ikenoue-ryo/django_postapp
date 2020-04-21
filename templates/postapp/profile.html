@@ -45,6 +45,57 @@
     </div>
     <!--Grid column-->
 
+
+    <!-- Classic tabs -->
+    <div class="classic-tabs container">
+    
+      <ul class="nav tabs-cyan" id="myClassicTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab" href="#profile-classic"
+            role="tab" aria-controls="profile-classic" aria-selected="true">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" id="follow-tab-classic" data-toggle="tab" href="#follow-classic" role="tab"
+            aria-controls="follow-classic" aria-selected="false">Follow</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" id="contact-tab-classic" data-toggle="tab" href="#contact-classic" role="tab"
+            aria-controls="contact-classic" aria-selected="false">Contact</a>
+        </li>
+      </ul>
+      <div class="tab-content border-right border-bottom border-left rounded-bottom" id="myClassicTabContent">
+        <div class="tab-pane fade active show clearfix" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
+          <ul class="clearfix">
+          {% for post in user.post_set.all %}
+            <li>
+              <img src="{{ post.picture1.url }}" width="90%;">
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
+          <ul class="clearfix">
+            {% for post in user.post_set.all %}
+            <li>
+              <img src="{{ post.picture1.url }}" width="90%;">
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
+          <ul class="clearfix">
+            {% for post in user.post_set.all %}
+            <li>
+              <img src="{{ post.picture1.url }}" width="90%;">
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    
+    </div>
+    <!-- Classic tabs -->
+
 </section>
 <!--Section: Testimonials v.1-->
 
@@ -85,6 +136,7 @@
         </form>
       </div>
       <!--Footer-->
+
       <div class="modal-footer mx-5 pt-3 mb-1">
         <p class="font-small grey-text d-flex justify-content-end"><a href="#" class="blue-text ml-1">
             Sign Up</a></p>

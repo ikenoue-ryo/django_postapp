@@ -46,4 +46,60 @@
     right: 0px;
     margin: 10px;
   }
+
+  .nav{
+    border-radius: .3rem .3rem 0 0;
+    background-color: #00bcd4 !important;
+
+  }
+
+  .nav a{
+    color: #fff;
+    width: 100%;
+  }
+
+  .classic-tabs{
+    margin: 20px auto;
+  }
+
+  .classic-tabs ul{
+    height: 42px;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+
+  }
+
+
+  .classic-tabs ul li{
+    width: 33.33%;
+    list-style: none;
+    display: inline-block;
+    float: left;
+    margin: 0;
+  }
+
+  .classic-tabs a{
+    color: #fff;
+  }
+
+  .tabs-cyan {
+    background-color: #00bcd4 !important;
+    border-radius: .3rem .3rem 0 0;
+  }
+
+  .tab-pane{
+    margin: 0 15px 30px;
+  }
+
+  .tab-pane ul{
+    height: auto;
+  }
+
+  .tab-pane ul li{
+    margin: 30px 0 0 0;
+    width: 33.3%;
+    height: 215px;
+    object-fit: cover;
+  }
 }
