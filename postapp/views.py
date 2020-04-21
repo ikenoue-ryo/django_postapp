@@ -35,8 +35,6 @@ class IndexView(ListView):
         return context
  
 
-
-
 class New(CreateView):
     template_name = 'postapp/new.html'
     form_class = PostForm
@@ -58,7 +56,6 @@ class Edit(UpdateView):
 class Delete(DeleteView):
     model = Post
     success_url = reverse_lazy('postapp:index')
-
 
 
 class SignUp(CreateView):
