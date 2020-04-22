@@ -284,4 +284,13 @@
     width: 556px;
     height: 371px;
   }
+
+  .post_tag{
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .post_tag a{
+    color: rgb(29, 161, 242);
+  }
 }

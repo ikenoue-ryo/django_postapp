@@ -17,7 +17,7 @@ class Post(models.Model):
     picture4 = models.ImageField(upload_to='image/posts/', blank=True, null=True)
     text = models.TextField(blank=True)
     tag = models.ManyToManyField(Tag, verbose_name='タグ')
-    #relationは関連する記事がない場合記事してせずに保存できる
+    #relationは関連する記事がない場合記事してせずに保存できる。Postと紐づけるからself
     relation = models.ManyToManyField('self', verbose_name='関連', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
