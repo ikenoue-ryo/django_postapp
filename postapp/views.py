@@ -13,7 +13,7 @@ from django.views import View
 from django.views import generic
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
 from .models import Post, Like, Comment, Tag
-from users.models import User, Connection
+from users.models import User
 
 
 class IndexView(ListView):
