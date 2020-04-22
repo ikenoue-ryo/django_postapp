@@ -12,7 +12,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
 from django.views import generic
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
-from .models import Post, Like, Comment, #Tag
+from .models import Post, Like, Comment, Tag
 from users.models import User
 
 
@@ -34,20 +34,20 @@ class IndexView(ListView):
         return context
 
  
-# """ タグ一覧 """
-# class Tag(generic.ListView):
-#     model = Post
-#     template_name = 'postapp/index.html'
+""" タグ一覧 """
+class Tag(generic.ListView):
+    model = Post
+    template_name = 'postapp/index.html'
 
-#     def get_queryset(self):
-#         tag = Tag.objects.get(name=self.kwargs['tag'])
-#         queryset = Post.objects.order_by('-id').filter(tag=tag)
-#         return queryset
+    def get_queryset(self):
+        tag = Tag.objects.get(name=self.kwargs['tag'])
+        queryset = Post.objects.order_by('-id').filter(tag=tag)
+        return queryset
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['tag_key'] = self.kwargs['tag']
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag_key'] = self.kwargs['tag']
+        return context
 
 
 class New(CreateView):
