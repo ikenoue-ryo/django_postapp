@@ -12,9 +12,10 @@ from django.contrib.auth.forms import AuthenticationForm
 
 
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
-from .models import Post, Like, Comment
-from users.models import User
+from .models import Post, Like, Comment, Tag
+from users.models import User, Connection
 from django.views import View
+from django.views import generic
 
 
 class IndexView(ListView):
@@ -35,6 +36,26 @@ class IndexView(ListView):
         return context
  
 
+""" タグ一覧 """
+class TagView(ListView):
+    model = Tag
+    template_name = 'postapp/index.html'
+    def get_queryset(self):
+        tag = Tag.objects.get(name=self.kwargs['tag'])
+        queryset = Blog.objects.order_by('-id').filter(tag=tag)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag_key'] = self.kwargs['tag']
+        return context
+
+def tag(request, tag):
+    tag = Tag.objects.get(name=tag)
+    post = Post.objects.filter(tag=tag)
+    return render(request, 'postapp/index.html', { 'tag':tag, 'post':post })
+
+
 class New(CreateView):
     template_name = 'postapp/new.html'
     form_class = PostForm
@@ -53,6 +74,12 @@ class Edit(UpdateView):
     success_url = reverse_lazy('postapp:index')
 
 
+# class Update(UpdateView):
+#     model = Post
+#     fields = ('picture1', 'picture2', 'picture3', 'picture4', 'text', 'tag')
+#     success_url = reverse_lazy('postapp:index')
+
+
 class Delete(DeleteView):
     model = Post
     success_url = reverse_lazy('postapp:index')
@@ -66,7 +93,7 @@ class SignUp(CreateView):
         form = self.form_class(data=request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            username = form.cleaned_data.get('profname')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
@@ -86,6 +113,10 @@ class Logout(LogoutView):
 class ProfileView(DetailView):
     model = User
     template_name = 'postapp/profile.html'
+
+    users = User.objects.all()
+    for user in users:
+        posts = user.post_set.all()
 
 
 class ProfileEditView(UpdateView):
@@ -146,3 +177,5 @@ class AddComment(View):
             'comment_list': comment_list,
             'post': post
         })
+
+

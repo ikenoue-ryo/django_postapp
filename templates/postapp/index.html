@@ -42,7 +42,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     <div class="user_set">
-                                        <a href="{% url 'postapp:edit' post.id %}" data-toggle="modal" data-target="#elegantModalForm">編集</a>　
+                                        <a href="{% url 'postapp:edit' post.id %}" data-toggle="modal" data-target="#editModalForm-{{ post.id }}">編集</a>　
                                         <a href="{% url 'postapp:delete' post.id %}" data-toggle="modal" data-target="#exampleModalCenter">削除</a>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
 
                     <!-- 編集モーダルここから -->
                     <!-- Modal -->
-                    <div class="modal fade" style="z-index:1500;" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    <div class="modal fade" style="z-index:1500;" id="editModalForm-{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg editplace" role="document">
                             <!--Content-->
@@ -125,35 +125,35 @@
                                     </button>
                                 </div>
                                 <!--Body-->
-                                <form id="signupform" action="" method="POST" enctype="multipart/form-data">
+                                <form id="editform" action="{% url 'postapp:edit' post.id %}" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="md-form pb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture1" id="picture">
-                                            <label class="custom-file-label" for="customFile">ファイルを選択</label>
+                                            <input type="file" class="custom-file-input " name="picture1" id="{{ post.id }}">
+                                            <label class="custom-file-label" for="customFile">{{ post.picture1 }}</label>
                                         </div>
                                     </div>
                                     <div class="md-form pb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture2" id="picture">
-                                            <label class="custom-file-label" for="customFile">ファイルを選択</label>
+                                            <input type="file" class="custom-file-input " name="picture2" id="{{ post.id }}">
+                                            <label class="custom-file-label" for="customFile">{{ post.picture2 }}</label>
                                         </div>
                                     </div>
                                     <div class="md-form pb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture3" id="picture">
-                                            <label class="custom-file-label" for="customFile">ファイルを選択</label>
+                                            <input type="file" class="custom-file-input " name="picture3" id="{{ post.id }}">
+                                            <label class="custom-file-label" for="customFile">{{ post.picture3 }}</label>
                                         </div>
                                     </div>
                                     <div class="md-form pb-3">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture4" id="picture">
-                                            <label class="custom-file-label" for="customFile">ファイルを選択</label>
+                                            <input type="file" class="custom-file-input " name="picture4" id="{{ post.id }}">
+                                            <label class="custom-file-label" for="customFile">{{ post.picture4 }}</label>
                                         </div>
                                     </div>
                                     <div class="md-form mb-5">
-                                        <input type="text" name="text" id="Form-email1" class="form-control validate">
-                                        <label data-error="wrong" data-success="right" for="Form-email1">本文</label>
+                                        <input type="text" name="text" id="Form-email1" class="form-control validate" value="{{ post.text }}">
+                                        <label data-error="wrong" data-success="right" for="Form-text">本文</label>
                                     </div>
                                     <div class="text-center mb-3">
                                         <input type="submit" value="保存" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
@@ -220,13 +220,13 @@
 </div>
 
 <script>
-$(document)
+$(document) //HTML読み込み後に処理実行
     .on('click', '.like', function () {
         var id = $(this).attr("id");
         do_like(id)
     })
 
-    .on('submit', 'form', function(){
+    $('.post_comment').on('submit', 'form', function(){ //イベント名、セレクタ、関数
         do_comment($(this))
         $(this).find(":text").val("")
         return false

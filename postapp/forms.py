@@ -27,7 +27,7 @@ class LoginForm(AuthenticationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('picture1', 'picture2', 'picture3', 'picture4', 'text')
+        fields = ('picture1', 'picture2', 'picture3', 'picture4', 'tag', 'text')
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
