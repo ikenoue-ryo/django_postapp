@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block customcss %}
-  <link href="{% static 'postapp/profile.css' %}" rel="stylesheet">
+<link href="{% static 'postapp/profile.css' %}" rel="stylesheet">
 {% endblock customcss %}
 
 {% block content %}
@@ -24,11 +24,12 @@
         <div class="card-up blue lighten-2">
         </div>
 
-        <a href="{% url 'postapp:profile_edit' user.id %}" data-toggle="modal" data-target="#elegantModalForm" class="profile_edit">編集</a>
+        <a href="{% url 'postapp:profile_edit' user.id %}" data-toggle="modal" data-target="#profile_EditModalForm"
+          class="profile_edit">編集</a>
 
         <!--Avatar-->
-        <div class="avatar mx-auto white"><img src="/media/{{ user.icon }}" width="300px"
-            alt="avatar mx-auto white" class="mt-4 rounded-circle">
+        <div class="avatar mx-auto white"><img src="/media/{{ user.icon }}" width="300px" alt="avatar mx-auto white"
+            class="mt-4 rounded-circle">
         </div>
 
         <div class="card-body">
@@ -48,11 +49,11 @@
 
     <!-- Classic tabs -->
     <div class="classic-tabs container">
-    
+
       <ul class="nav tabs-cyan" id="myClassicTab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab" href="#profile-classic"
-            role="tab" aria-controls="profile-classic" aria-selected="true">Post</a>
+          <a class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab"
+            href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true">Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link waves-light" id="follow-tab-classic" data-toggle="tab" href="#follow-classic" role="tab"
@@ -60,21 +61,40 @@
         </li>
         <li class="nav-item">
           <a class="nav-link waves-light" id="contact-tab-classic" data-toggle="tab" href="#contact-classic" role="tab"
-            aria-controls="contact-classic" aria-selected="false">Tag</a>
+            aria-controls="contact-classic" aria-selected="false">Contact</a>
         </li>
       </ul>
       <div class="tab-content border-right border-bottom border-left rounded-bottom" id="myClassicTabContent">
-        <div class="tab-pane fade active show clearfix" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
+        <div class="tab-pane fade active show clearfix" id="profile-classic" role="tabpanel"
+          aria-labelledby="profile-tab-classic">
           <ul class="clearfix">
-
+            {% for post in user.post_set.all %}
             <li>
               <img src="{{ post.picture1.url }}" width="90%;">
             </li>
-
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
+          <ul class="clearfix">
+            {% for post in user.post_set.all %}
+            <li>
+              <img src="{{ post.picture1.url }}" width="90%;">
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
+          <ul class="clearfix">
+            {% for post in user.post_set.all %}
+            <li>
+              <img src="{{ post.picture1.url }}" width="90%;">
+            </li>
+            {% endfor %}
           </ul>
         </div>
       </div>
-    
+
     </div>
     <!-- Classic tabs -->
 
@@ -83,14 +103,15 @@
 
 <!-- プロフィールモーダルここから -->
 <!-- Modal -->
-<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="profile_EditModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <!--Content-->
     <div class="modal-content form-elegant">
       <!--Header-->
       <div class="modal-header text-center">
-        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Profile Edit</strong>
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Profile
+            Edit</strong>
         </h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -98,21 +119,26 @@
       </div>
       <!--Body-->
       <div class="modal-body mx-4">
+        <!--Avatar-->
+        <div class="avatar mx-auto white text-center"><img src="/media/{{ user.icon }}" width="300px" alt="avatar mx-auto white"
+            class="mt-4 rounded-circle">
+        </div>
+
         <!--Body-->
-        <form id="signupform" action="" method="POST" enctype="multipart/form-data">
+        <form id="profile_edit" action="" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="md-form pb-3">
             <div class="custom-file">
-              <input type="file" class="custom-file-input " name="picture1" id="picture">
-              <label class="custom-file-label" for="customFile">ファイルを選択</label>
+              <input type="file" class="custom-file-input " name="user.icon" id="{{ user.id }}">
+              <label class="custom-file-label" for="customFile">{{ user.icon }}</label>
             </div>
           </div>
           <div class="md-form mb-5">
-            <input type="text" name="proftext" id="Form-email1" class="form-control validate">
+            <input type="text" name="proftext" id="Form-email1" class="form-control validate" value="{{ user.proftext }}">
             <label data-error="wrong" data-success="right" for="Form-email1">PR</label>
           </div>
           <div class="text-center mb-3">
-            <input type="submit" value="Post" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
+            <input type="submit" value="保存" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
             <input type="hidden" name="next" value="{{ next }}">
           </div>
         </form>

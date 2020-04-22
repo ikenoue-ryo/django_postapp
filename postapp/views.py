@@ -34,6 +34,7 @@ class IndexView(ListView):
         context['like_list'] = like_list
         context['comment_list'] = comment_list
         return context
+
  
 
 """ タグ一覧 """
