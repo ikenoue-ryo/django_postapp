@@ -132,7 +132,6 @@ class Likes(View):
     def get(self, request, postId):
         post = Post.objects.get(id=postId)
         like = Like.objects.filter(author=self.request.user, post=post)
-        like_count = Like.objects.filter(id=postId).count()
         like_list = {}
         comment_list = {}
         # 過去にいいねを押しているのか
@@ -149,7 +148,6 @@ class Likes(View):
             'like_list': like_list,
             'comment_list': comment_list,
             'post': post
-            #'like_count': like_count
         })
 
 
@@ -171,5 +169,3 @@ class AddComment(View):
             'comment_list': comment_list,
             'post': post
         })
-
-

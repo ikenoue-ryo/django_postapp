@@ -18,4 +18,5 @@ urlpatterns = [
     path('<postId>/like/', login_required(views.Likes.as_view()), name='like'),
     path('<postId>/comment/', login_required(views.AddComment.as_view()), name='comment'),
     path('tag/<str:tag>/', views.Tag.as_view(), name='tag'),
+    # path('tag/<str:tag>/detail/<int:pk>/', views.Tag_Detail.as_view(), name='tag_detail')
 ]
