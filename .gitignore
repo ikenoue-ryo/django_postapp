@@ -1,5 +1,6 @@
 .vscode/
-media/image/
+# media/image/
+# media
 
 ### Django ###
 *.log
@@ -8,7 +9,7 @@ media/image/
 __pycache__/
 local_settings.py
 db.sqlite3
-# media
+
 
 .Python
 [Bb]in
