@@ -121,17 +121,19 @@
                                         <p>{{ post.text }}</p>
                                     </div>
                                     <div class="post_comment">
-                                        <form class="comment" id="{{ post.id }}">
-                                            {% csrf_token %}
-                                            <input class="form-control comment" name="comment" type="text" placeholder="コメント">
-                                        </form>
-                                        <div class="comment_list_{{post.id}} comments"><!--Ajax新規追加文-->
-                                            <p>{{ comment_list|get_comment_list:post.id }}</p><!--既存コメント-->
-                                        </div>
                                         <div class="like_list_{{post.id}}"><!--Ajax追加文-->
                                             {{ post|is_like:user }}<!--ハート-->
                                             <span class="like_text">{{ like_list|get_likes:post.id }}</span><!--profnameがいいねしました-->
                                         </div>
+                                        <!--Ajax新規追加文-->
+                                        <div class="comment_list_{{post.id}} comments">
+                                            <!--既存コメント-->
+                                            <p>{{ comment_list|get_comment_list:post.id }}</p>
+                                        </div>
+                                        <form class="comment" id="{{ post.id }}">
+                                            {% csrf_token %}
+                                            <input class="form-control comment" name="comment" type="text" placeholder="コメント">
+                                        </form>
                                     </div>
                                 </div>
                             </div>

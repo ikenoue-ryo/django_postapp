@@ -1,6 +1,8 @@
 <h2>Requirement</h2>
-Django 2.2
-python 3.6.1
+<ul>
+<li>Django 2.2</li>
+<li>python 3.6.1</li>
+</ul>
 
 <h2>Usage</h2>
 <ol>

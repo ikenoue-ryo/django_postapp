@@ -190,6 +190,11 @@ body{
 
   .post_text{
     margin: 20px;
+    border-bottom: 1px solid #007bff;
+  }
+
+  .post_text p{
+    font-weight: 600;
   }
 
   .user_set{
@@ -262,6 +267,29 @@ body{
 
   .comments{
     margin: 20px 0 10px;
+  }
+
+  .comments img{
+    width: 35px;
+    border-radius: 40px;
+  }
+
+  p.comment{
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 0 0 10px;
+    text-overflow: ellipsis;
+  }
+
+  form.comment{
+    position: absolute;
+    bottom: -70px;
+    width: 35%;
+    height: 48px;
+  }
+
+  .form-control{
+    padding: 23px;
   }
 
   .carousel-control-prev-icon{

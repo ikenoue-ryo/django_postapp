@@ -28,6 +28,6 @@ def get_comment_list(comment_list, key):
     text = ""
     if key in comment_list:
         for comment in comment_list[key]:
-            text += f"{comment.author.profname}: {comment.text}<br>"
-    
+            text += mark_safe(f"<p><img src=\"media/{comment.author.icon}\"></p>")
+            text += mark_safe(f"<p class=\"comment\">{comment.text}</p>")
     return mark_safe(text)
