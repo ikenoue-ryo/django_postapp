@@ -80,7 +80,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <div class="user_set">
-                                    <a href="{% url 'postapp:edit' post.id %}" data-toggle="modal" data-target="#editModalForm">編集</a>　
+                                    <a href="{% url 'postapp:edit' post.id %}" data-toggle="modal" data-target="#editModalForm-{{ post.id }}">編集</a>　
                                     <a href="{% url 'postapp:delete' post.id %}" data-toggle="modal" data-target="#exampleModalCenter">削除</a>
                                 </div>
                             </div>
@@ -147,9 +147,9 @@
                 </div>
                 <!--モーダルの中身ここまで-->
 
-                <!-- 編集モーダルコンテンツ -->
+                <!-- 投稿モーダルコンテンツ -->
                     {% include './new.html' %}
-                <!-- 編集モーダルコンテンツ -->
+                <!-- 投稿モーダルコンテンツ -->
 
                 <!-- 編集モーダルコンテンツ -->
                     {% include './edit.html' %}

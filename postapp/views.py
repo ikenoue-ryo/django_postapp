@@ -68,12 +68,6 @@ class Edit(UpdateView):
     success_url = reverse_lazy('postapp:index')
 
 
-# class Update(UpdateView):
-#     model = Post
-#     fields = ('picture1', 'picture2', 'picture3', 'picture4', 'text', 'tag')
-#     success_url = reverse_lazy('postapp:index')
-
-
 class Delete(DeleteView):
     model = Post
     success_url = reverse_lazy('postapp:index')

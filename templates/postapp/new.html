@@ -4,7 +4,7 @@
     aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg editplace" role="document">
         <!--Content-->
-        <div class="container modal-content form-elegant editform">
+        <div class="container modal-content form-elegant newpostform">
             <!--Header-->
             <div class="modal-header text-center">
                 <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
@@ -14,7 +14,7 @@
                 </button>
             </div>
                 <!--Body-->
-                <form id="newpostform" action="" method="POST" enctype="multipart/form-data">
+                <form id="newpostform" action="{% url 'postapp:new' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="md-form pb-3">
                         <div class="custom-file">
@@ -41,11 +41,11 @@
                         </div>
                     </div>
                     <div class="md-form mb-5">
-                        <input type="text" name="text" id="Form-text" class="form-control validate">
+                        <input type="text" name="text" id="Form-text" class="form-control">
                         <label data-error="wrong" data-success="right" for="Form-text">本文</label>
                     </div>
                     <div class="md-form mb-5">
-                        <input type="text" name="tag" id="Form-text" class="form-control validate">
+                        <input type="text" name="tag" id="Form-text" class="form-control">
                         <label data-error="wrong" data-success="right" for="Form-tag">タグ</label>
                     </div>
                     <div class="text-center mb-3">
