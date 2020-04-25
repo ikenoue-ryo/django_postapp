@@ -64,7 +64,7 @@ class New(CreateView):
 class Edit(UpdateView):
     template_name = 'postapp/edit.html'
     model = Post
-    form_class = PostForm
+    fields = ('picture1', 'picture2', 'picture3', 'picture4', 'text')
     success_url = reverse_lazy('postapp:index')
 
 

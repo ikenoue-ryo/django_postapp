@@ -18,7 +18,7 @@
                     </a>
                 </li>
             </ul>
-                <!--モーダル適用ここから-->
+                <!--画像モーダルここから-->
                 <a data-toggle="modal" data-target="#modal-follow-{{ post.id }}">
                 <div class="hovereffect">
                         <img class="img-responsive card-img pc_mainimg" src="{{post.picture1.url}}">
@@ -30,195 +30,129 @@
                 </a>
                 <!--モーダル適用ここまで-->
 
-                    <!--モーダルここから-->
-                    <div id="modal-follow-{{ post.id }}" class="modal fade">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle float-left"
-                                            style="height:3%">
-                                        <span class="span_profname">{{ post.author.profname }}</span>
-                                    </a>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="user_set">
-                                        <a href="{% url 'postapp:edit' post.id %}" data-toggle="modal" data-target="#editModalForm-{{ post.id }}">編集</a>　
-                                        <a href="{% url 'postapp:delete' post.id %}" data-toggle="modal" data-target="#exampleModalCenter">削除</a>
-                                    </div>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                        <div class="post_img carousel-inner">
-                                            <div class="carousel-item active">
-                                                <img class="img-responsive card-img" src="{{post.picture1.url}}">
-                                            </div>
-                                            <div class="carousel-item">
-                                                <img class="img-responsive card-img" src="{{post.picture2.url}}">
-                                            </div>
-                                            <div class="carousel-item">
-                                                <img class="img-responsive card-img" src="{{post.picture3.url}}">
-                                            </div>
-                                            <div class="carousel-item">
-                                                <img class="img-responsive card-img" src="{{post.picture4.url}}">
-                                            </div>
-                                        </div>
-                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">前の画像</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">次の画像</span>
-                                        </a>
-                                    </div><!-- /.carousel -->
-
-                                    <div class="post_contents">
-                                        <div class="post_icon">
-                                            <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle"
-                                                    style="height:3%">
-                                                <span class="span_profname">{{ post.author.profname }}</span>
-                                            </a>
-                                        </div>
-                                        <div class="post_text">
-                                            <p>{{ post.text }}</p>
-                                        </div>
-                                        <div class="post_comment">
-                                            <form class="comment" id="{{ post.id }}">
-                                                {% csrf_token %}
-                                                <input class="form-control comment" name="comment" type="text" placeholder="コメント">
-                                            </form>
-                                            <div class="comment_list_{{post.id}} comments"><!--Ajax新規追加文-->
-                                                <p>{{ comment_list|get_comment_list:post.id }}</p><!--既存コメント-->
-                                            </div>
-                                            <div class="like_list_{{post.id}}"><!--Ajax追加文-->
-                                                {{ post|is_like:user }}<!--ハート-->
-                                                <span class="like_text">{{ like_list|get_likes:post.id }}</span><!--profnameがいいねしました-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                    <form method="POST" action="">
-                                        <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a" data-dismiss="modal">戻る</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--モーダルここまで-->
-
-                    <!-- 編集モーダルここから -->
-                    <!-- Modal -->
-                    <div class="modal fade" style="z-index:1500;" id="editModalForm-{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg editplace" role="document">
-                            <!--Content-->
-                            <div class="container modal-content form-elegant editform">
-                                <!--Header-->
-                                <div class="modal-header text-center">
-                                    <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Edit</strong></h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <!--Body-->
-                                <form id="editform" action="{% url 'postapp:edit' post.id %}" method="POST" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="md-form pb-3">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture1" id="{{ post.id }}">
-                                            <label class="custom-file-label" for="customFile">{{ post.picture1 }}</label>
-                                        </div>
-                                    </div>
-                                    <div class="md-form pb-3">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture2" id="{{ post.id }}">
-                                            <label class="custom-file-label" for="customFile">{{ post.picture2 }}</label>
-                                        </div>
-                                    </div>
-                                    <div class="md-form pb-3">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture3" id="{{ post.id }}">
-                                            <label class="custom-file-label" for="customFile">{{ post.picture3 }}</label>
-                                        </div>
-                                    </div>
-                                    <div class="md-form pb-3">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input " name="picture4" id="{{ post.id }}">
-                                            <label class="custom-file-label" for="customFile">{{ post.picture4 }}</label>
-                                        </div>
-                                    </div>
-                                    <div class="md-form mb-5">
-                                        <input type="text" name="text" id="Form-email1" class="form-control validate" value="{{ post.text }}">
-                                        <label data-error="wrong" data-success="right" for="Form-text">本文</label>
-                                    </div>
-                                    <div class="text-center mb-3">
-                                        <input type="submit" value="保存" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
-                                        <input type="hidden" name="next" value="{{ next }}">
-                                    </div>
-                                </form>
-                            </div>
-                            <!--/.Content-->
-                        </div>
-                    </div>
-                    <!-- Modal -->
-                    <!-- 編集モーダルここまで -->
-
-                    <!-- 削除モーダルここから -->
-                    <!-- Modal -->
-                    <div class="modal fade" style="z-index:1500;" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    
-                        <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-exclamation-circle"></i> Attention</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body delete_content">
-                                    本当に削除しますか？
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                                    <form method="POST" action="{% url 'postapp:delete' post.id %}">
-                                        {% csrf_token %}<button type="submit" value="DELETE" class="btn btn-primary">削除</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 削除モーダルここまで -->
-
+                <!-- トップ表示ここから -->
                 <div class="card-body">
-                    <div class="like_list_{{post.id}}"><!--Ajax追加文-->
-                        {{ post|is_like:user }}<!--ハート-->
-                        <span class="like_text">{{ like_list|get_likes:post.id }}</span><!--profnameがいいねしました-->
+                    <div class="like_list_{{post.id}}">
+                        <!--Ajax追加文-->
+                        {{ post|is_like:user }}
+                        <!--ハート-->
+                        <span class="like_text">{{ like_list|get_likes:post.id }}</span>
+                        <!--profnameがいいねしました-->
                     </div>
                     <div class="card-hedder">
-                        {{ post.text |truncatechars:18 }}<!--本文-->
+                        {{ post.text |truncatechars:18 }}
+                        <!--本文-->
                     </div>
                     <div class="post_tag">
                         {% for tag in post.tag.all %}
-                            <a href="{% url 'postapp:tag' tag %}">#{{ tag.name }}</a>
+                        <a href="{% url 'postapp:tag' tag %}">#{{ tag.name }}</a>
                         {% endfor  %}
                     </div>
-
-
+                
+                
                     <div class="card-hedder">
                         <a data-toggle="modal" data-target="#modal-follow-{{ post.id }}">
                             <span class="comment_text"><i class="far fa-comment" style="font-size: 15px;"></i>
-                            コメント</span>
+                                コメント</span>
                         </a>
                     </div>
                     <div class="pt-2">
                         <small>
-                            投稿時間 {{ post.created_at|date:'m/d H:i' }}
+                            投稿時間 {{ post.created_at|date:'m/d H:i' }} <div id="header123">
+                
+                            </div>
                         </small>
                     </div>
                 </div>
+                <!-- トップ表示ここまで -->
+
+
+                <!--モーダルの中身-->
+                <div id="modal-follow-{{ post.id }}" class="modal fade">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle float-left"
+                                        style="height:3%">
+                                    <span class="span_profname">{{ post.author.profname }}</span>
+                                </a>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="user_set">
+                                    <a href="{% url 'postapp:edit' post.id %}" data-toggle="modal" data-target="#editModalForm">編集</a>　
+                                    <a href="{% url 'postapp:delete' post.id %}" data-toggle="modal" data-target="#exampleModalCenter">削除</a>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <div class="post_img carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img class="img-responsive card-img" src="{{post.picture1.url}}">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img class="img-responsive card-img" src="{{post.picture2.url}}">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img class="img-responsive card-img" src="{{post.picture3.url}}">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img class="img-responsive card-img" src="{{post.picture4.url}}">
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">前の画像</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">次の画像</span>
+                                    </a>
+                                </div><!-- /.carousel -->
+
+                                <div class="post_contents">
+                                    <div class="post_icon">
+                                        <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle"
+                                                style="height:3%">
+                                            <span class="span_profname">{{ post.author.profname }}</span>
+                                        </a>
+                                    </div>
+                                    <div class="post_text">
+                                        <p>{{ post.text }}</p>
+                                    </div>
+                                    <div class="post_comment">
+                                        <form class="comment" id="{{ post.id }}">
+                                            {% csrf_token %}
+                                            <input class="form-control comment" name="comment" type="text" placeholder="コメント">
+                                        </form>
+                                        <div class="comment_list_{{post.id}} comments"><!--Ajax新規追加文-->
+                                            <p>{{ comment_list|get_comment_list:post.id }}</p><!--既存コメント-->
+                                        </div>
+                                        <div class="like_list_{{post.id}}"><!--Ajax追加文-->
+                                            {{ post|is_like:user }}<!--ハート-->
+                                            <span class="like_text">{{ like_list|get_likes:post.id }}</span><!--profnameがいいねしました-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <form method="POST" action="">
+                                    <button type="button" class="btn blue-gradient btn-block btn-rounded z-depth-1a" data-dismiss="modal">戻る</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--モーダルの中身ここまで-->
+
+                <!-- 編集モーダルコンテンツ -->
+                    {% include './edit.html' %}
+                <!-- 編集モーダルコンテンツ -->
+
+                
+                <!-- 削除モーダルコンテンツ -->
+                    {% include './delete.html' %}
+                <!-- 削除モーダルコンテンツ -->
         </div>
     </div>
     {% endfor %}
@@ -260,5 +194,10 @@ $(document) //HTML読み込み後に処理実行
             $('.like_list_' + form.attr("id")).html(data);
         })
     }
+
+
+
+
 </script>
+
 {% endblock content %}

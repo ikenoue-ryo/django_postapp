@@ -1,78 +1,59 @@
-{% extends 'postapp/base.html' %}
-{% load static %}
-
-{% block customcss %}
-<link href="{% static 'postapp/edit.css' %}" rel="stylesheet">
-{% endblock customcss %}
-
-
-{% block content %}
-
-
-<div class="container post_pad">
-    <!-- Modal -->
-
-    <body style="background: rgb(33, 37, 41, 0.5);">
-        <div class="" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <!--Content-->
-                <div class="modal-content form-elegant">
-                    <!--Header-->
-                    <div class="modal-header text-center">
-                        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
-                            <strong>Edit</strong></h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <a href="/"><i class="fas fa-home"></i></a>
-                        </button>
-                    </div>
-                    <!--Body-->
-                    <div class="modal-body mx-4">
-                        <!--Body-->
-                        <form action="" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {% for field in form %}
-                            <div class="form-group">
-                                <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
-                                {{ field }}
-                                {{ field.errors }}
-                            </div>
-                            {% endfor %}
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">更新</button>
-                            </div>
-                        </form>
-                        <!-- 
-                            以下のformならできる
-                            <form action="" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {% for field in form %}
-                            <div class="form-group">
-                                <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
-                                {{ field }}
-                                {{ field.errors }}
-                            </div>
-                            {% endfor %}
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">更新</button>
-                            </div>
-                        </form> -->
-                    </div>
-                    <!--Footer-->
-                    <div class="modal-footer mx-5 pt-3 mb-1">
-                        <p class="font-small grey-text d-flex justify-content-end"> <a href="{% url 'postapp:signup' %}"
-                                class="blue-text ml-1">
-                                Sign Up</a></p>
+<!-- 編集モーダルコンテンツここから -->
+<!-- Modal -->
+<div class="modal fade" style="z-index:1500;" id="editModalForm" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg editplace" role="document">
+        <!--Content-->
+        <div class="container modal-content form-elegant editform">
+            <!--Header-->
+            <div class="modal-header text-center">
+                <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+                    <strong>Edit</strong></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <form id="editform" action="{% url 'postapp:edit' post.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="md-form pb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input " name="picture1" id="{{ post.id }}">
+                        <label class="custom-file-label" for="customFile">{{ post.picture1 }}</label>
                     </div>
                 </div>
-                <!--/.Content-->
-            </div>
-
+                <div class="md-form pb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input " name="picture2" id="{{ post.id }}">
+                        <label class="custom-file-label" for="customFile">{{ post.picture2 }}</label>
+                    </div>
+                </div>
+                <div class="md-form pb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input " name="picture3" id="{{ post.id }}">
+                        <label class="custom-file-label" for="customFile">{{ post.picture3 }}</label>
+                    </div>
+                </div>
+                <div class="md-form pb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input " name="picture4" id="{{ post.id }}">
+                        <label class="custom-file-label" for="customFile">{{ post.picture4 }}</label>
+                    </div>
+                </div>
+                <div class="md-form mb-5">
+                    <input type="text" name="text" id="Form-email1" class="form-control validate"
+                        value="{{ post.text }}">
+                    <label data-error="wrong" data-success="right" for="Form-text">本文</label>
+                </div>
+                <div class="text-center mb-3">
+                    <input type="submit" value="保存" class="btn blue-gradient btn-block btn-rounded z-depth-1a">
+                    <input type="hidden" name="next" value="{{ next }}">
+                </div>
+            </form>
         </div>
-        <!-- Modal -->
-
-    </body>
+        <!--/.Content-->
+    </div>
 </div>
+<!-- 編集モーダルコンテンツここまで -->
 
 
-{% endblock content %}
