@@ -8,7 +8,6 @@ body{
 }
 
 
-
 /*-- スマホ版表示CSS  --*/
 @media screen and (max-width: 480px) {
   .spblock h2{
@@ -294,5 +293,8 @@ body{
 
   .post_tag a{
     color: rgb(29, 161, 242);
+  }
+  .post_tag a:hover{
+    border-bottom: 1px solid rgb(29, 161, 242);
   }
 }

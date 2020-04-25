@@ -32,12 +32,12 @@
 
                 <!-- トップ表示ここから -->
                 <div class="card-body">
-                    <div class="like_list_{{post.id}}">
                         <!--Ajax追加文-->
-                        {{ post|is_like:user }}
+                    <div class="like_list_{{post.id}}">
                         <!--ハート-->
-                        <span class="like_text">{{ like_list|get_likes:post.id }}</span>
+                        {{ post|is_like:user }} 
                         <!--profnameがいいねしました-->
+                        <span class="like_text">{{ like_list|get_likes:post.id }}</span>
                     </div>
                     <div class="card-hedder">
                         {{ post.text |truncatechars:18 }}
@@ -144,6 +144,10 @@
                     </div>
                 </div>
                 <!--モーダルの中身ここまで-->
+
+                <!-- 編集モーダルコンテンツ -->
+                    {% include './new.html' %}
+                <!-- 編集モーダルコンテンツ -->
 
                 <!-- 編集モーダルコンテンツ -->
                     {% include './edit.html' %}
