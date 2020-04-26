@@ -9,4 +9,32 @@
 {% block content %}
 
 
+<!-- 
+①　Postモデルの本文を出力できる。
+{% for post in post_list %}
+  <p>{{ post.text }}</p>
+{% endfor %}  -->
+
+<!-- {% for post in user.post_set.all %}
+    {{ post.text }}
+{% endfor %} -->
+
+
+
+<!-- ②　Tagモデルに紐づいているPostの一覧を参照できると思ったが    
+非表示になる。
+Postモデルを使っているからできない？
+
+{% for post in tag.post_set.all %}
+<p>{{ post.text }}</p>
+{% endfor %} -->
+
+
+
+
+<!-- {{ post.tag.name }}
+-->
+<!-- {{ post.text }}  -->
+
+
 {% endblock content %}

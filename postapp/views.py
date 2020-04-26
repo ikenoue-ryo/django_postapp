@@ -34,21 +34,12 @@ class IndexView(ListView):
         context['comment_list'] = comment_list
         return context
 
- 
+
 """ タグ一覧 """
-class Tag(generic.ListView):
+class Tag(ListView):
     model = Post
-    template_name = 'postapp/index.html'
-
-    def get_queryset(self):
-        tag = Tag.objects.get(name=self.kwargs['tag'])
-        queryset = Post.objects.order_by('-id').filter(tag=tag)
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tag_key'] = self.kwargs['tag']
-        return context
+    template_name = 'postapp/tag_detail.html'
+    queryset = Post.objects.order_by('created_at').reverse()    
 
 
 class New(CreateView):
@@ -102,10 +93,6 @@ class Logout(LogoutView):
 class ProfileView(DetailView):
     model = User
     template_name = 'postapp/profile.html'
-
-    users = User.objects.all()
-    for user in users:
-        posts = user.post_set.all()
 
 
 class ProfileEditView(UpdateView):

@@ -3,7 +3,7 @@ from users.models import User
 
 
 class Tag(models.Model):
-    name = models.CharField('タグ', max_length=30)
+    name = models.CharField(verbose_name='タグ', max_length=30)
 
     def __str__(self):
         return self.name
