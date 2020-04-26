@@ -23,8 +23,10 @@
                 <div class="hovereffect">
                         <img class="img-responsive card-img pc_mainimg" src="{{post.picture1.url}}">
                     <div class="overlay spblock">
-                        <span><i class="fas fa-heart"></i></span><h2>いいね！
-                        </h2>
+                        <span><i class="fas fa-heart"></i></span>
+                        <h2>{{ post.like__count }}</h2>　
+                        <span class="comment_text_hover"><i class="fas fa-comment"></i></span>
+                        <h2>{{ post.comment__count }}</h2>
                     </div>
                 </div>
                 </a>
@@ -40,8 +42,8 @@
                         <span class="like_text">{{ like_list|get_likes:post.id }}</span>
                     </div>
                     <div class="card-hedder">
-                        {{ post.text |truncatechars:18 }}
                         <!--本文-->
+                        {{ post.text |truncatechars:18 }}
                     </div>
                     <div class="post_tag">
                         {% for tag in post.tag.all %}
@@ -53,15 +55,15 @@
                     <div class="card-hedder">
                         <a data-toggle="modal" data-target="#modal-follow-{{ post.id }}">
                             <span class="comment_text"><i class="far fa-comment" style="font-size: 15px;"></i>
-                                コメント</span>
+                                コメントする</span>
                         </a>
                     </div>
                     <div class="pt-2">
-                        <small>
+                        <!-- <small>
                             投稿時間 {{ post.created_at|date:'m/d H:i' }} <div id="header123">
-                
                             </div>
-                        </small>
+                        </small> -->
+                        <a href="{% url 'postapp:profile' post.author.id %}"><img src="{{ post.author.icon.url }}" class="top-icon" width="40"></a>
                     </div>
                 </div>
                 <!-- トップ表示ここまで -->
@@ -130,6 +132,8 @@
                                             <!--既存コメント-->
                                             <p>{{ comment_list|get_comment_list:post.id }}</p>
                                         </div>
+                                        <div class="like_list_{{post.id}}"></div>
+
                                         <form class="comment" id="{{ post.id }}">
                                             {% csrf_token %}
                                             <input class="form-control comment" name="comment" type="text" placeholder="コメント">

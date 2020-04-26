@@ -31,3 +31,4 @@ def get_comment_list(comment_list, key):
             text += mark_safe(f"<p><img src=\"media/{comment.author.icon}\"></p>")
             text += mark_safe(f"<p class=\"comment\">{comment.text}</p>")
     return mark_safe(text)
+

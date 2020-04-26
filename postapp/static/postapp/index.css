@@ -149,6 +149,7 @@ body{
     filter: alpha(opacity=100);
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
+    margin: 22px 5px;
   }
 
   .post_img{
@@ -215,7 +216,11 @@ body{
     color: rgb(237, 73, 86);
   }
 
- 
+  .comment_text_hover .fa-comment{
+    color: #fff;
+    font-size: 16px;
+  }
+
   .editform{
     padding: 110px;
     margin: 140px;
@@ -242,6 +247,10 @@ body{
     font-size: 13px;
   }
 
+  span.comment_text:hover{
+      border-bottom: 1px solid grey;
+  }
+
   .card-hedder{
     margin: 10px 0;
   }
@@ -254,10 +263,17 @@ body{
   }
 
   small {
-    color: grey;
+    /* color: grey;
     position: absolute;
     right: 10px;
-    bottom: 3px;
+    bottom: 3px; */
+  }
+  
+  img.top-icon{
+    border-radius: 50px;
+    position: absolute;
+    bottom: 25px;
+    right: 15px;
   }
 
   .post_comment{

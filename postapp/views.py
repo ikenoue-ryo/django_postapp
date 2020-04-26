@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
 from django.views import generic
+from django.db.models import Count
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
 from .models import Post, Like, Comment, Tag
 from users.models import User
@@ -20,7 +21,7 @@ class IndexView(ListView):
     model = Post
     template_name = 'postapp/index.html'
     paginate_by = 12
-    queryset = Post.objects.order_by('created_at').reverse()
+    queryset = Post.objects.order_by('created_at').reverse().annotate(Count('like', distinct=True), Count('comment', distinct=True))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
