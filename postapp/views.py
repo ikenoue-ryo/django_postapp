@@ -36,10 +36,9 @@ class IndexView(ListView):
 
 
 """ タグ一覧 """
-class Tag(ListView):
-    model = Post
+class Tag(DetailView):
+    model = Tag
     template_name = 'postapp/tag_detail.html'
-    queryset = Post.objects.order_by('created_at').reverse()    
 
 
 class New(CreateView):
@@ -151,3 +150,8 @@ class AddComment(View):
             'comment_list': comment_list,
             'post': post
         })
+
+
+class DeleteComment(DeleteView):
+    model = Comment
+    success_url = reverse_lazy('postapp:index')

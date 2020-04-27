@@ -17,6 +17,6 @@ urlpatterns = [
     path('profile/edit/<int:pk>/', views.ProfileEditView.as_view(), name='profile_edit'),
     path('<postId>/like/', login_required(views.Likes.as_view()), name='like'),
     path('<postId>/comment/', login_required(views.AddComment.as_view()), name='comment'),
-    path('tag/<str:tag>/', views.Tag.as_view(), name='tag'),
-    # path('tag/<str:tag>/detail/<int:pk>/', views.Tag_Detail.as_view(), name='tag_detail')
+    path('delete/comment/<int:pk>/', login_required(views.DeleteComment.as_view()), name='delete_comment'),
+    path('tag/<int:pk>', views.Tag.as_view(), name='tag'),
 ]

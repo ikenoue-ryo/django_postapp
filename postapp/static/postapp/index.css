@@ -345,11 +345,43 @@ body{
     border-bottom: 1px solid rgb(29, 161, 242);
   }
 
+
+  /* searchボタン */
+  .search-form{
+    width: 43%;
+    margin: 30px auto 25px;
+    text-align: center;
+  }
+
+  input.search-text{
+    text-align: center;
+    padding: 20px;
+  }
+  input:focus::-webkit-input-placeholder {
+	color: transparent;
+  }
+  input:focus::-moz-placeholder {
+    color: transparent;
+  }
+  input:focus::-ms-input-placeholder {
+    color: transparent;
+  }
+  input:focus::placeholder {
+    color: transparent;
+  }
   
-  /* Editここから */
+  /* searchボタンここまで */
+  
+  /* Edit */
   .editform{
     padding: 70px;
     margin: 110px;
   }
   /* Editここまで */
+
+  /* footer */
+  .page-footer{
+    margin-top: 35px;
+  }
+  /* footerここまで */
 }

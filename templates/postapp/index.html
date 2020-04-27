@@ -8,6 +8,10 @@
 
 {% block content %}
 <div class="container clearfix">
+    <div class="search-form">
+        <input class="form-control search-text" type="text" placeholder="キーワード検索" aria-label="Search">
+    </div>
+    
     {% for post in object_list %}
     <div class="postcard">
         <div class="card">
@@ -47,8 +51,9 @@
                     </div>
                     <div class="post_tag">
                         {% for tag in post.tag.all %}
-                        <a href="{% url 'postapp:tag' tag %}">#{{ tag.name }}</a>
+                        <a href="{% url 'postapp:tag' tag.pk %}">#{{ tag.name }}</a>
                         {% endfor  %}
+
                     </div>
                 
                     <div class="card-hedder">
@@ -132,6 +137,8 @@
                                             <p>{{ comment_list|get_comment_list:post.id }}</p>
                                         </div>
                                         <div class="like_list_{{post.id}}"></div>
+                                        
+                                        <a href="{% url 'postapp:delete_comment' post.id %}">コメ削除</a>
 
                                         <form class="comment" id="{{ post.id }}">
                                             {% csrf_token %}
@@ -203,10 +210,6 @@ $(document) //HTML読み込み後に処理実行
             $('.like_list_' + form.attr("id")).html(data);
         })
     }
-
-
-
-
 </script>
 
 {% endblock content %}
