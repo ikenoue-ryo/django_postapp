@@ -1,17 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
-from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
 from django.views import generic
-from django.db.models import Count
+from django.db.models import Count, Q
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
 from .models import Post, Like, Comment, Tag
 from users.models import User
@@ -22,6 +23,17 @@ class IndexView(ListView):
     template_name = 'postapp/index.html'
     paginate_by = 12
     queryset = Post.objects.order_by('created_at').reverse().annotate(Count('like', distinct=True), Count('comment', distinct=True))
+
+    """ 検索機能 Text or Tag """
+    def get_queryset(self):
+        q_word = self.request.GET.get('keyword')
+
+        if q_word:
+            object_list = Post.objects.order_by('created_at').reverse().annotate(Count('like', distinct=True), Count('comment', distinct=True)).filter(Q(text__icontains=q_word) | Q(tag__name__icontains=q_word))
+            messages.info(self.request, '{} の検索結果'.format(q_word))
+        else:
+            object_list = Post.objects.order_by('created_at').reverse().annotate(Count('like', distinct=True), Count('comment', distinct=True))
+        return object_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()

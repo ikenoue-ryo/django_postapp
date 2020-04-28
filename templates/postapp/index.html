@@ -9,9 +9,21 @@
 {% block content %}
 <div class="container clearfix">
     <div class="search-form">
-        <input class="form-control search-text" type="text" placeholder="キーワード検索" aria-label="Search">
+        <form method="GET" action="">
+            <input class="form-control search-text" type="text" name="keyword" value="{{ request.GET.query }}" placeholder="キーワード検索" aria-label="Search">
+        </form>
     </div>
     
+    <!-- メッセージフレームワーク -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="result-text">
+            <h2>{{ message }}</h2>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+
     {% for post in object_list %}
     <div class="postcard">
         <div class="card">

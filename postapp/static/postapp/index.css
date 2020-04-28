@@ -369,6 +369,14 @@ body{
   input:focus::placeholder {
     color: transparent;
   }
+
+  .result-text {
+    margin: 10px;
+  }
+
+  .result-text h2{
+    font-size: 30px;
+  }
   
   /* searchボタンここまで */
   

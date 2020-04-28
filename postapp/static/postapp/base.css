@@ -6,4 +6,19 @@
 /*-- PC版表示CSS  --*/
 @media screen and (min-width: 1200px) {
 
+  html,body{
+     height:100%;
+	}
+	#wrapper{
+			width: 100%;
+			position: relative;
+			height:auto !important; /*IE6対策*/
+			height: 100%; /*IE6対策*/
+			min-height: 100%;
+	}
+	#footer{
+			height:140px;
+			position:absolute;
+			bottom:0;
+	}
 }
