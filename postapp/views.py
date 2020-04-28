@@ -40,6 +40,19 @@ class Tag(DetailView):
     model = Tag
     template_name = 'postapp/tag_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["posts_list"] = Post.objects.all().annotate(Count('like', distinct=True), Count('comment', distinct=True))
+        # context["posts_list"] = Post.objects.get(id=self.kwargs['pk']).annotate(Count('like', distinct=True), Count('comment', distinct=True))
+        like_list = {}
+        comment_list = {}
+        for post in context['posts_list']:
+            like_list[post.id] = Like.objects.filter(post=post)
+            comment_list[post.id] = Comment.objects.filter(post=post)
+        context['like_list'] = like_list
+        context['comment_list'] = comment_list
+        return context
+
 
 class New(CreateView):
     template_name = 'postapp/new.html'

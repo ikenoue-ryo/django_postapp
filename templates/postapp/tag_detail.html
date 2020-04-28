@@ -9,9 +9,9 @@
 {% block content %}
 <div class="container clearfix">
   <div class="search-form">
-    <input class="form-control search-text" type="text" placeholder="キーワード検索" aria-label="Search">
+    <input class="form-control search-text" type="text" placeholder="# {{ tag.name }}" aria-label="Search">
   </div>
-
+  
   {% for post in tag.post_set.all %}
   <div class="postcard">
     <div class="card">
@@ -29,9 +29,12 @@
           <img class="img-responsive card-img pc_mainimg" src="{{post.picture1.url}}">
           <div class="overlay spblock">
             <span><i class="fas fa-heart"></i></span>
-            <h2>{{ post.like__count }}</h2>　
+            {% for post in posts_list %}
+            <h2>{{ post.like__count }}</h2>
             <span class="comment_text_hover"><i class="fas fa-comment"></i></span>
+
             <h2>{{ post.comment__count }}</h2>
+            {% endfor %}
           </div>
         </div>
       </a>
@@ -81,7 +84,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img
-                  src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle float-left"
+                  src="{{ post.author.icon.url }}" width="50px;" class="timeline-icon rounded-circle float-left"
                   style="height:3%">
                 <span class="span_profname">{{ post.author.profname }}</span>
               </a>
@@ -124,7 +127,7 @@
               <div class="post_contents">
                 <div class="post_icon">
                   <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img
-                      src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle"
+                      src="{{ post.author.icon.url }}" width="50px;" class="timeline-icon rounded-circle"
                       style="height:3%">
                     <span class="span_profname">{{ post.author.profname }}</span>
                   </a>
@@ -137,13 +140,13 @@
                     <!--Ajax追加文-->
                     {{ post|is_like:user }}
                     <!--ハート-->
-                    <span class="like_text">{{ like_list|get_likes:post.id }}</span>
+                    <span class="like_text">{{ like_list|get_likes:post.id }}</span><!--profnameがいいねしました-->
                     <!--profnameがいいねしました-->
                   </div>
                   <!--Ajax新規追加文-->
                   <div class="comment_list_{{post.id}} comments">
                     <!--既存コメント-->
-                    <p>{{ comment_list|get_comment_list:post.id }}</p>
+                    <p>{{ comment_list|get_comment_list2:post.id }}</p>
                   </div>
                   <div class="like_list_{{post.id}}"></div>
 
@@ -223,27 +226,3 @@
 </script>
 
 {% endblock content %}
-
-
-
-
-<!-- 
-
-
-
-
-{{ tag.name }}
-
-{% for post in tag.post_set.all %}
-  <img src="{{ post.picture1.url }}" width="300">
-{% endfor %} 
-
-
-{% for post in object_list %}
-
-
-
-
-
--->
-
