@@ -149,8 +149,9 @@
                                             <p>{{ comment_list|get_comment_list:post.id }}</p>
                                         </div>
                                         <div class="like_list_{{post.id}}"></div>
-                                        
-                                        <a href="{% url 'postapp:delete_comment' post.id %}">コメ削除</a>
+
+
+                                            <!-- <a href="{% url 'postapp:delete_comment' post.id %}">コメ削除</a> -->
 
                                         <form class="comment" id="{{ post.id }}">
                                             {% csrf_token %}

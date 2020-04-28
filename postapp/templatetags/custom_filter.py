@@ -32,6 +32,7 @@ def get_comment_list(comment_list, key):
             text += mark_safe(f"<p class=\"comment\">{comment.text}</p>")
     return mark_safe(text)
 
+
 # タグ一覧表示用ここから
 @register.filter(name='get_comment_list2')
 def get_comment_list2(comment_list, key):
