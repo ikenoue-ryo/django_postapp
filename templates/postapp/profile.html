@@ -125,11 +125,11 @@
         </div>
 
         <!--Body-->
-        <form id="profile_edit" action="" method="POST" enctype="multipart/form-data">
+        <form id="profile_edit" action="{% url 'postapp:profile_edit' user.id %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="md-form pb-3">
             <div class="custom-file">
-              <input type="file" class="custom-file-input " name="user.icon" id="{{ user.id }}">
+              <input type="file" class="custom-file-input " name="icon" id="{{ user.id }}">
               <label class="custom-file-label" for="customFile">{{ user.icon }}</label>
             </div>
           </div>

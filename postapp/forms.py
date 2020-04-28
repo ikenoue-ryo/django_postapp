@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django import forms
 
 from .models import Post
+from users.models import User
 
 
 class SignUpForm(UserCreationForm):
@@ -37,7 +38,8 @@ class PostForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = get_user_model()
+        model = User
+        # model = get_user_model()
         fields = ('icon', 'proftext')
 
     def __init__(self, email=None, profname=None, icon=None, proftext=None):

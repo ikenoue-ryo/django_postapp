@@ -120,14 +120,19 @@ class ProfileView(DetailView):
 
 
 class ProfileEditView(UpdateView):
-    model = get_user_model()
-    form_class = ProfileForm
+    model = User
+    # form_class = ProfileForm
     fields = ['icon', 'proftext']
-    success_url = reverse_lazy('postapp:profile')
+    # success_url = reverse_lazy('postapp:index')
 
     def get_object(self):
         # ログイン中のユーザーで検索することを明示する
         return self.request.user
+
+    def get_success_url(self):
+           userid = self.kwargs['pk']
+           return reverse_lazy('postapp:profile', kwargs={'pk': userid})
+
 
 
 class Likes(View):
