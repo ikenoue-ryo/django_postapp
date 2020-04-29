@@ -15,6 +15,7 @@ def get_likes(like_list, key):
             text += "がいいねしました"
     return text
 
+
 @register.filter(name='is_like')
 def is_like(post, user):
     if Like.objects.filter(author=user, post=post).exists():

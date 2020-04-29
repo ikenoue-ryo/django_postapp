@@ -137,8 +137,8 @@ class ProfileEditView(UpdateView):
 
 class Likes(View):
     model = Like
-    slug_field = 'post'
-    slug_url_kwarg = 'postId'
+    slug_field = 'post'# モデルのフィールドの名前
+    slug_url_kwarg = 'postId'# urls.pyでのキーワードの名前
 
     def get(self, request, postId):
         post = Post.objects.get(id=postId)
@@ -175,7 +175,7 @@ class AddComment(View):
 
         like_list[post.id] = Like.objects.filter(post=post)
         comment_list[post.id] = Comment.objects.filter(post=post)
-        return render(request, 'postapp/like.html', {
+        return render(request, 'postapp/comment.html', {
             'like_list': like_list,
             'comment_list': comment_list,
             'post': post

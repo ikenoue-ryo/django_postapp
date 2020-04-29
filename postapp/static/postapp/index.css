@@ -280,6 +280,10 @@ body{
     margin: 20px;
   }
 
+  .icon-size img{
+    width: 30px;
+  }
+
   .user_comment p{
     margin: 20px 0;
   }

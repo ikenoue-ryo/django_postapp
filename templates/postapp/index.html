@@ -148,10 +148,11 @@
                                             <!--既存コメント-->
                                             <p>{{ comment_list|get_comment_list:post.id }}</p>
                                         </div>
-                                        <div class="like_list_{{post.id}}"></div>
+                                        <!-- <div class="like_list_{{post.id}}"></div> -->
 
 
-                                            <!-- <a href="{% url 'postapp:delete_comment' post.id %}">コメ削除</a> -->
+                                            <!-- <a href="{% url 'postapp:delete_comment' post.id %}" value="Delete">コメ削除</a> -->
+
 
                                         <form class="comment" id="{{ post.id }}">
                                             {% csrf_token %}
@@ -220,7 +221,7 @@ $(document) //HTML読み込み後に処理実行
             data: form.serialize(),
         })
         .done((data) => {
-            $('.like_list_' + form.attr("id")).html(data);
+            $('.comment_list_' + form.attr("id")).html(data);
         })
     }
 </script>
