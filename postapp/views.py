@@ -183,5 +183,6 @@ class AddComment(View):
 
 
 class DeleteComment(DeleteView):
-    model =  Post
+    model = Comment
+    template_name = 'postapp/comment_delete.html'
     success_url = reverse_lazy('postapp:index')

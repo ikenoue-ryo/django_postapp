@@ -295,6 +295,8 @@ body{
   .comments img{
     width: 35px;
     border-radius: 40px;
+    position: relative;
+    bottom: 5px;
   }
 
   p.comment{
@@ -302,6 +304,15 @@ body{
     overflow: hidden;
     padding: 0 0 0 10px;
     text-overflow: ellipsis;
+    display: inline-block;
+    float: left;
+    width: 270px;
+  }
+
+  p.comment-delete{
+    display: inline-block;
+    float: left;
+    width: 26px;
   }
 
   form.comment{
