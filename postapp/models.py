@@ -33,4 +33,4 @@ class Like(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey('users.User', on_delete=models.CASCADE)
     post = models.ForeignKey('postapp.Post', on_delete=models.CASCADE)
-    text = models.TextField(blank=True)
+    text = models.TextField(blank=False, null=False)
