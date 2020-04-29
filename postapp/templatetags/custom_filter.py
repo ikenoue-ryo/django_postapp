@@ -43,5 +43,6 @@ def get_comment_list2(comment_list, key):
         for comment in comment_list[key]:
             text += mark_safe(f"<p><img src=\"{comment.author.icon.url}\"></p>")
             text += mark_safe(f"<p class=\"comment\">{comment.text}</p>")
+            text += mark_safe(f"<p class=\"comment-delete\"><a href=\"delete/comment/{comment.id}/\" value=\"DELETE\" data-toggle=\"modal\" data-target=\"#commentDelete-{comment.id}\"><i class=\"far fa-trash-alt\"></i></a></p>")
     return mark_safe(text)
 # タグ一覧表示用ここまで
