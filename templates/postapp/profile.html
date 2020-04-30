@@ -15,7 +15,7 @@
 
   <div class="row">
     <!--Grid column-->
-    <div class="col-lg-4 col-md-12 mb-4 profile_card">
+    <div class="mb-4 profile_card">
 
       <!--Card-->
       <div class="card testimonial-card">
@@ -23,22 +23,45 @@
         <!--Background color-->
         <div class="card-up blue lighten-2">
         </div>
-
-        <a href="{% url 'postapp:profile_edit' user.id %}" data-toggle="modal" data-target="#profile_EditModalForm"
+        <!-- リクエストユーザーとユーザーのIDが同じなら編集可能 -->
+        {% if request.user.id == user.id %}
+        <a href="{% url 'postapp:profile_edit' user.profname %}" data-toggle="modal" data-target="#profile_EditModalForm"
           class="profile_edit">編集</a>
+        {% endif %}
 
         <!--Avatar-->
-        <div class="avatar mx-auto white"><img src="/media/{{ user.icon }}" width="300px" alt="avatar mx-auto white"
-            class="mt-4 rounded-circle">
+        <div class="profile-card-contents">
+          <div class="avatar white"><img src="/media/{{ user.icon }}" width="300px" alt="avatar mx-auto white"
+             class="mt-4 rounded-circle">
+          </div>
+          <div class="favorite">
+            <!--Name-->
+            <h3 class="card-title">{{ user.profname }}</h3>
+            <div class="favorite-button">
+                <a href="{% url 'postapp:follow' user.profname %}" class="follow-link">　Follow　</a>
+                <a href="{% url 'postapp:unfollow' user.profname %}" class="unfollow-link">Unfollow</a>
+            </div>
+            <!-- メッセージフレームワーク -->
+            {% if messages %}
+            {% for message in messages %}
+            <div class="result-text">
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <hr style="margin: 30px;">
+
+            <div class="connection">
+                <p>Following<span class="num">{{ user.follower.count }}</span></p>
+                <p>Followers<span class="num">{{ user.following.count }}</span></p>
+            </div>
+            <div class="card-body">
+                <!--Quotation-->
+                <p><i class="fas fa-quote-left"></i> {{ user.proftext }}</p>
+            </div>
+          </div>
         </div>
 
-        <div class="card-body">
-          <!--Name-->
-          <h4 class="card-title mt-1">{{ user.profname }}</h4>
-          <hr>
-          <!--Quotation-->
-          <p><i class="fas fa-quote-left"></i> {{ user.proftext }}</p>
-        </div>
 
       </div>
       <!--Card-->
@@ -47,9 +70,12 @@
     <!--Grid column-->
 
 
+  
+
+
+
     <!-- Classic tabs -->
     <div class="classic-tabs container">
-
       <ul class="nav tabs-cyan" id="myClassicTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab"
@@ -94,12 +120,12 @@
           </ul>
         </div>
       </div>
-
     </div>
     <!-- Classic tabs -->
 
 </section>
 <!--Section: Testimonials v.1-->
+
 
 <!-- プロフィールモーダルここから -->
 <!-- Modal -->
@@ -120,21 +146,23 @@
       <!--Body-->
       <div class="modal-body mx-4">
         <!--Avatar-->
-        <div class="avatar mx-auto white text-center"><img src="/media/{{ user.icon }}" width="300px" alt="avatar mx-auto white"
-            class="mt-4 rounded-circle">
+        <div class="avatar mx-auto white text-center"><img src="/media/{{ user.icon }}" width="300px"
+            alt="avatar mx-auto white" class="mt-4 rounded-circle">
         </div>
 
         <!--Body-->
-        <form id="profile_edit" action="{% url 'postapp:profile_edit' user.id %}" method="POST" enctype="multipart/form-data">
+        <form id="profile_edit" action="{% url 'postapp:profile_edit' user.profname %}" method="POST"
+          enctype="multipart/form-data">
           {% csrf_token %}
           <div class="md-form pb-3">
             <div class="custom-file">
-              <input type="file" class="custom-file-input " name="icon" id="{{ user.id }}">
+              <input type="file" class="custom-file-input " name="icon" id="{{ user.profname }}">
               <label class="custom-file-label" for="customFile">{{ user.icon }}</label>
             </div>
           </div>
           <div class="md-form mb-5">
-            <input type="text" name="proftext" id="Form-email1" class="form-control validate" value="{{ user.proftext }}">
+            <input type="text" name="proftext" id="Form-email1" class="form-control validate"
+              value="{{ user.proftext }}">
             <label data-error="wrong" data-success="right" for="Form-email1">PR</label>
           </div>
           <div class="text-center mb-3">

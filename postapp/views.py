@@ -14,9 +14,10 @@ from django.views import View
 from django.views import generic
 from django.db.models import Count, Q
 from .forms import LoginForm, SignUpForm, PostForm, ProfileForm
-from .models import Post, Like, Comment, Tag
+from .models import Post, Like, Comment, Tag, Connection
 from users.models import User
-
+from .helpers import get_current_user
+from django.http import HttpResponseRedirect, Http404
 
 class IndexView(ListView):
     model = Post
@@ -55,7 +56,6 @@ class Tag(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context["posts_list"] = Post.objects.all().annotate(Count('like', distinct=True), Count('comment', distinct=True))
-        # context["posts_list"] = Post.objects.get(id=self.kwargs['pk']).annotate(Count('like', distinct=True), Count('comment', distinct=True))
         like_list = {}
         comment_list = {}
         for post in context['posts_list']:
@@ -118,6 +118,55 @@ class ProfileView(DetailView):
     model = User
     template_name = 'postapp/profile.html'
 
+    slug_field = 'profname'
+    slug_url_kwarg = 'profname'
+
+
+
+
+
+@login_required
+def follow_view(request, *args, **kwargs):
+    try:
+        follower = User.objects.get(profname=request.user.profname)
+        following = User.objects.get(profname=kwargs['profname'])
+    except User.DoesNotExist:
+        messages.warning(request, '{}は存在しません'.format(kwargs['profname']))
+        return HttpResponseRedirect(reverse_lazy('postapp:index'))
+
+    if follower == following:
+        messages.warning(request, '自分自身はフォローできません')
+    else:
+        _, created = Connection.objects.get_or_create(follower=follower, following=following)
+
+        if (created):
+            messages.success(request, '{}をフォローしました'.format(following.profname))
+        else:
+            messages.warning(request, 'すでに{}をフォロー中です'.format(following.profname))
+
+    return HttpResponseRedirect(reverse_lazy('postapp:profile', kwargs={'profname': following.profname}))
+
+@login_required
+def unfollow_view(request, *args, **kwargs):
+    try:
+        follower = User.objects.get(profname=request.user.profname)
+        following = User.objects.get(profname=kwargs['profname'])
+        if follower == following:
+            messages.warning(request, '自分自身のフォローを外せません')
+        else:
+            unfollow = Connection.objects.get(follower=follower, following=following)
+            unfollow.delete()
+            messages.success(request, '{}のフォローを外しました'.format(following.profname))
+    except User.DoesNotExist:
+        messages.warning(request, '{}は存在しません'.format(kwargs['profname']))
+        return HttpResponseRedirect(reverse_lazy('postapp:index'))
+    except Connection.DoesNotExist:
+        messages.warning(request, '{0}をフォローしませんでした'.format(following.profname))
+
+    return HttpResponseRedirect(reverse_lazy('postapp:profile', kwargs={'profname': following.profname}))
+
+
+
 
 class ProfileEditView(UpdateView):
     model = User
@@ -130,8 +179,8 @@ class ProfileEditView(UpdateView):
         return self.request.user
 
     def get_success_url(self):
-           userid = self.kwargs['pk']
-           return reverse_lazy('postapp:profile', kwargs={'pk': userid})
+           profname = self.kwargs['profname']
+           return reverse_lazy('postapp:profile', kwargs={'profname': profname})
 
 
 

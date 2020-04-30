@@ -34,3 +34,12 @@ class Comment(models.Model):
     author = models.ForeignKey('users.User', on_delete=models.CASCADE)
     post = models.ForeignKey('postapp.Post', on_delete=models.CASCADE)
     text = models.TextField(blank=False, null=False)
+
+
+class Connection(models.Model):
+    follower = models.ForeignKey('users.User', related_name='follower', on_delete=models.CASCADE)
+    following = models.ForeignKey('users.User', related_name='following', on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{}が{}をフォローしました".format(self.follower.profname, self.following.profname)

@@ -42,11 +42,52 @@
     margin:0 auto;
   }
 
+  .profile-card-contents{
+      width: 600px;
+  }
+
+  .connection p{
+    font-size: 20px;
+  }
+
+  .connection span.num{
+    font-weight: 600;
+    margin: 10px;
+  }
+
   a.profile_edit{
     width: 40px;
     position: absolute;
     right: 0px;
     margin: 10px;
+  }
+
+  .follow-link{
+    color: #fff;
+    background-color: rgb(29, 161, 242);
+    padding: 10px;
+    border-radius: 37px;
+    margin: 20px;
+  }
+
+  .follow-link:hover, .unfollow-link:hover{
+    color: #000;
+  }
+
+  .unfollow-link{
+    color: #fff;
+    background-color: rgb(202, 32, 85);
+    padding: 11px;
+    border-radius: 37px;
+    margin: 20px;
+  }
+
+  .favorite-button{
+    margin: 20px;
+  }
+
+  .favorite-button a{
+    margin: 10px 0;
   }
 
   .nav{
@@ -55,9 +96,21 @@
 
   }
 
+  .card-title {
+    margin: 10px 0 15px;
+  }
+
   .nav a{
     color: #fff;
     width: 100%;
+  }
+
+  section{
+    background: rgb(245,245,245);
+  }
+
+  .tab-content{
+    background: #fff;
   }
 
   .classic-tabs{
