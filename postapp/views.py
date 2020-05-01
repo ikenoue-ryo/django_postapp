@@ -122,7 +122,10 @@ class ProfileView(DetailView):
     slug_url_kwarg = 'profname'
 
 
-
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data()
+    #     context["users_list"] = User.objects.all()
+    #     return context
 
 
 @login_required

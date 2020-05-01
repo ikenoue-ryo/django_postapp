@@ -157,4 +157,11 @@
     height: 215px;
     object-fit: cover;
   }
+
+  img.follower-image{
+    border-radius: 100px;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+  }
 }
