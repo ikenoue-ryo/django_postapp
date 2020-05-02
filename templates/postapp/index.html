@@ -30,7 +30,7 @@
         <div class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <a href="{% url 'postapp:profile' post.pk %}" class="text-dark"><img
+                    <a href="{% url 'postapp:profile' post.author.profname %}"><img
                             src="media/{{ post.author.icon }}" width="50px;" class="timeline-icon rounded-circle"
                             style="height:3%">
                         <span class="span_profname">{{ post.author.profname }}</span>
@@ -96,7 +96,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img
+                            <a href="{% url 'postapp:profile' post.author.profname %}"><img
                                     src="media/{{ post.author.icon }}" width="50px;"
                                     class="timeline-icon rounded-circle float-left" style="height:3%">
                                 <span class="span_profname">{{ post.author.profname }}</span>
@@ -144,7 +144,7 @@
 
                             <div class="post_contents">
                                 <div class="post_icon">
-                                    <a href="{% url 'postapp:profile' post.author.id %}" class="text-dark"><img
+                                    <a href="{% url 'postapp:profile' post.author.profname %}"><img
                                             src="media/{{ post.author.icon }}" width="50px;"
                                             class="timeline-icon rounded-circle" style="height:3%">
                                         <span class="span_profname">{{ post.author.profname }}</span>
@@ -218,7 +218,7 @@
             <!--Content-->
             <div class="modal-content text-center close-box">
                 <!--Header-->
-                <div class="modal-header d-flex justify-content-center">
+                <div class="modal-header d-flex justify-content-center blue-gradient btn-rounded z-depth-1a waves-effect waves-light">
                     <p class="heading">ログインしていません</p>
                     <button type="button" class="close close-link pt-4" data-dismiss="modal" aria-label="閉じる">
                         <span aria-hidden="true">&times;</span>

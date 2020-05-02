@@ -19,6 +19,10 @@
 .form-elegant .modal-body, .form-elegant .modal-footer {
     font-weight: 400; }
 
+ .custom-file-label {
+    text-align: left;
+  } 
+
 .custom-file-label::after {
     content: "写真";
   }
@@ -138,6 +142,10 @@
     color: #fff;
   }
 
+  .classic-tabs a:hover{
+    opacity: 0.7;
+  }
+
   .tabs-cyan {
     background-color: #00bcd4 !important;
     border-radius: .3rem .3rem 0 0;
@@ -164,4 +172,11 @@
     width: 200px;
     height: 200px;
   }
+
+  /* Edit */
+  .editform{
+    padding: 70px;
+    margin: 110px;
+  }
+  /* Editここまで */
 }

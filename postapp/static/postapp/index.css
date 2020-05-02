@@ -205,7 +205,9 @@ body{
   }
 
   .modal-header .close {
-    margin: -1rem -0.5rem -1rem auto!important;
+    position: absolute;
+    top: 15px;
+    right: 45px;
   }
 
   .delete_content{
@@ -406,6 +408,14 @@ body{
 
   .close-link:hover{
     color: #fff;
+  }
+
+  .blue-gradient {
+    background: linear-gradient(5deg, #45cafc, #303f9f) !important;
+  }
+
+  .fa-bell{
+    color: #33b5e5;
   }
   /* サインアップ固定ここまで */
   

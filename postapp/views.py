@@ -124,7 +124,15 @@ class ProfileView(DetailView):
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data()
-    #     context["users_list"] = User.objects.all()
+    #     like_list = {}
+    #     comment_list = {}
+    #     post_list = Post.objects.all()
+    #     for post in context['post_list']:
+    #         like_list[post.id] = Like.objects.filter(post=post)
+    #         comment_list[post.id] = Comment.objects.filter(post=post)
+    #     context['like_list'] = like_list
+    #     context['comment_list'] = comment_list
+    #     comment['posts_list'] = Post.objects.all()
     #     return context
 
 

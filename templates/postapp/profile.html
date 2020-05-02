@@ -1,4 +1,5 @@
 {% extends 'postapp/base.html' %}
+{% load custom_filter %}
 {% load static %}
 
 {% block customcss %}
@@ -96,7 +97,12 @@
           <ul class="clearfix">
             {% for post in user.post_set.all %}
             <li>
-              <img src="{{ post.picture1.url }}" width="90%;">
+                <a href="{% url 'postapp:edit' post.id %}" data-toggle="modal" data-target="#editModalForm-{{ post.id }}">
+                    <img src="{{ post.picture1.url }}" width="90%;">
+                </a>
+                <!-- 編集モーダルコンテンツ -->
+                {% include './edit.html' %}
+                <!-- 編集モーダルコンテンツ -->
             </li>
             {% endfor %}
           </ul>
@@ -105,7 +111,7 @@
           <ul class="clearfix">
             {% for user in user.following.all %}
             <li>
-                <img src="{{ user.follower.icon.url }}" class="follower-image">
+                <a href="{% url 'postapp:profile' user.follower.profname %}"><img src="{{ user.follower.icon.url }}" class="follower-image"></a>
             </li>
             {% endfor %}
           </ul>
@@ -114,7 +120,7 @@
           <ul class="clearfix">
             {% for user in user.follower.all %}
             <li>
-                <img src="{{ user.following.icon.url }}" class="follower-image">
+                <a href="{% url 'postapp:profile' user.following.profname %}"><img src="{{ user.following.icon.url }}" class="follower-image"></a>
             </li>
             {% endfor %}
           </ul>
@@ -183,7 +189,6 @@
 </div>
 <!-- Modal -->
 <!-- プロフィールモーダルここまで -->
-
 
 
 {% endblock content %}
