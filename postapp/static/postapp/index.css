@@ -392,8 +392,23 @@ body{
   .result-text h2{
     font-size: 30px;
   }
+
+  /* サインアップ固定ここから */
+  .p-fix{
+    position: fixed;
+    right: 40px;
+    bottom: 10px;
+  }
+
+  .close-link{
+    color: #fff;
+  }
+
+  .close-link:hover{
+    color: #fff;
+  }
+  /* サインアップ固定ここまで */
   
-  /* searchボタンここまで */
   
   /* Edit */
   .editform{

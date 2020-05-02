@@ -56,7 +56,9 @@
                 <!--Ajax追加文-->
                 <div class="like_list_{{post.id}}">
                     <!--ハート-->
+                    {% if user.is_authenticated %}
                     {{ post|is_like:user }}
+                    {%  endif %}
                     <!--profnameがいいねしました-->
                     <span class="like_text">{{ like_list|get_likes:post.id }}</span>
                 </div>
@@ -154,7 +156,9 @@
                                 <div class="post_comment">
                                     <div class="like_list_{{post.id}}">
                                         <!--Ajax追加文-->
+                                        {% if user.is_authenticated %}
                                         {{ post|is_like:user }}
+                                        {% endif  %}
                                         <!--ハート-->
                                         <span class="like_text">{{ like_list|get_likes:post.id }}</span>
                                         <!--profnameがいいねしました-->
@@ -205,6 +209,45 @@
     {% endfor %}
 </div>
 
+    {% if user.is_anonymous %}
+    <!-- サインアップ固定コンテンツここから -->
+    <!--Modal: modalPush-->
+    <div class="" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-info p-fix" role="document">
+            <!--Content-->
+            <div class="modal-content text-center close-box">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">ログインしていません</p>
+                    <button type="button" class="close close-link pt-4" data-dismiss="modal" aria-label="閉じる">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+
+                    <i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>
+
+                    <p>あなたは現在、ログインしていません。ログインしますか？</p>
+
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer flex-center">
+                    <a href="{% url 'postapp:login' %}" class="btn btn-info">Yes</a>
+                    <a type="button" class="btn btn-outline-info waves-effect close-link" data-dismiss="modal">No</a>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal: modalPush-->
+    <!-- サインアップ固定コンテンツここまで -->
+    {% endif %}
+
+
 <script>
     $(document) //HTML読み込み後に処理実行
         .on('click', '.like', function () {
@@ -242,5 +285,14 @@
             })
     }
 </script>
+
+<script>
+    $(function () {
+        $('.close-link').click(function () {
+            $('.close-box').toggle();
+        });
+    });
+</script>
+
 
 {% endblock content %}
