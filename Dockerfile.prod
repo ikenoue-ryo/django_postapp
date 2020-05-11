@@ -17,10 +17,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # entrypoint.shをコピー
-COPY entrypoint.sh /usr/src/app/entrypoint.sh
+COPY entrypoint.prod.sh /usr/src/app/entrypoint.prod.sh
 
 # ホストのカレントディレクトリを作業ディレクトリにコピー
 COPY . /usr/src/app/
 
 # entrypoint.shを実行
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.prod.sh"]
+

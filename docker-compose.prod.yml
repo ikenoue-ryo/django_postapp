@@ -3,26 +3,20 @@ version: '3.7'
 services:
     django:
         # Dockerfileを探す
-        build: .
+        build: 
+            # 読み込むファイル名が`Dockerfile`ではない場合contextに相対パス、dockerfileにファイル名を記載
+            context: .
+            dockerfile: Dockerfile.prod
         # サービス起動後に入力されるコマンドを設定
-        command: python manage.py runserver 0.0.0.0:8000
+        command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
         # データを永続化させる場合の設定
         volumes:
-            - .:/usr/src/app/
+            - static_volume:/usr/src/app/static
         # 開放するポートを指定。`host:container`
-        ports:
-            - 8000:8000
+        expose:
+            - 8000
         # 環境変数を指定
-        environment:
-            # 1ならデバックモード
-            - DEBUG=1
-            - SECRET_KEY=hoge
-            - DATABASE_ENGINE=django.db.backends.postgresql
-            - DATABASE_DB=django_db
-            - DATABASE_USER=django_db_user
-            - DATABASE_PASSWORD=password1234
-            - DATABASE_HOST=postgres
-            - DATABASE_PORT=5432
+        env_file: .env
         # 接続するサービスを指定(対象のコンテナとリンク)
         depends_on:
             - postgres
@@ -35,20 +29,19 @@ services:
             - postgres_data:/var/lib/postgresql/data
         # su権限を持つ、指定されたユーザーと同じ名前のデータベースを作成
         # valueはdjangoサービスで指定したものと同じに
-        environment:
-            - POSTGRES_USER=django_db_user
-            - POSTGRES_PASSWORD=password1234
-            - POSTGRES_DB=django_db
+        env_file: .env.db
 
-    # nginx:
-    #     build: ./nginx
-    #     volumes:
-    #         - static_volume:/usr/src/app/staticfiles
-    #     ports:
-    #         - 8080:80
-    #     depends_on:
-    #         - django
+    nginx:
+        build: ./nginx
+        volumes:
+            - static_volume:/usr/src/app/static
+        ports:
+            - 1337:80
+        depends_on:
+            - django
 
 # トップレベルに書く「名前付きvolumes」は複数サービスから参照できる
 volumes:
     postgres_data:
+    static_volume:
+
