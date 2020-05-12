@@ -1,4 +1,4 @@
-# 公式からpython3.7 on alpine linuxイメージをpull
+# 公式からpython3.7 イメージをpull
 FROM python:3.7
 
 RUN mkdir /usr/src/app

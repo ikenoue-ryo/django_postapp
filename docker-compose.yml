@@ -28,7 +28,7 @@ services:
             - postgres
 
     postgres:
-        image: postgres
+        image: postgres:11.4-alpine
         # データベースの永続化
         # ホストのディレクトリにマウントしない様に、先頭に`./`をつけない
         volumes:
@@ -40,14 +40,14 @@ services:
             - POSTGRES_PASSWORD=password1234
             - POSTGRES_DB=django_db
 
-    nginx:
-        build: ./nginx
-        volumes:
-            - static_volume:/usr/src/app/static
-        ports:
-            - 1337:80
-        depends_on:
-            - django
+    # nginx:
+    #     build: ./nginx
+    #     volumes:
+    #         - static_volume:/usr/src/app/static
+    #     ports:
+    #         - 1337:80
+    #     depends_on:
+    #         - django
 
 # トップレベルに書く「名前付きvolumes」は複数サービスから参照できる
 volumes:
