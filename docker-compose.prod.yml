@@ -14,13 +14,13 @@ services:
             - static_volume:/usr/src/app/static
         # 開放するポートを指定。`host:container`
         expose:
-            - 8000
+           - 8000
         # ports:
         #     - "10080:8000"
         # 環境変数を指定
         environment:
             # 1ならデバックモード
-            - DEBUG=0
+            - DEBUG=1
             - SECRET_KEY=hoge
             - DATABASE_ENGINE=django.db.backends.postgresql
             - DATABASE_DB=django_db
@@ -28,7 +28,6 @@ services:
             - DATABASE_PASSWORD=password1234
             - DATABASE_HOST=postgres
             - DATABASE_PORT=5432
-            - DATABASE=postgres
         # 接続するサービスを指定(対象のコンテナとリンク)
         depends_on:
             - postgres
