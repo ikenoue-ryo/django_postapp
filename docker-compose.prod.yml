@@ -15,8 +15,20 @@ services:
         # 開放するポートを指定。`host:container`
         expose:
             - 8000
+        # ports:
+        #     - "10080:8000"
         # 環境変数を指定
-        env_file: .env
+        environment:
+            # 1ならデバックモード
+            - DEBUG=0
+            - SECRET_KEY=hoge
+            - DATABASE_ENGINE=django.db.backends.postgresql
+            - DATABASE_DB=django_db
+            - DATABASE_USER=django_db_user
+            - DATABASE_PASSWORD=password1234
+            - DATABASE_HOST=postgres
+            - DATABASE_PORT=5432
+            - DATABASE=postgres
         # 接続するサービスを指定(対象のコンテナとリンク)
         depends_on:
             - postgres
@@ -29,7 +41,10 @@ services:
             - postgres_data:/var/lib/postgresql/data
         # su権限を持つ、指定されたユーザーと同じ名前のデータベースを作成
         # valueはdjangoサービスで指定したものと同じに
-        env_file: .env.db
+        environment:
+            - POSTGRES_USER=django_db_user
+            - POSTGRES_PASSWORD=password1234
+            - POSTGRES_DB=django_db
 
     nginx:
         build: ./nginx
@@ -44,3 +59,4 @@ services:
 volumes:
     postgres_data:
     static_volume:
+

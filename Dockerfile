@@ -1,8 +1,6 @@
 # 公式からpython3.7 イメージをpull
 FROM python:3.7
 
-RUN mkdir /usr/src/app
-
 # 作業ディレクトリを設定
 WORKDIR /usr/src/app
 
